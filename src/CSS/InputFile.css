@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.span-input {
+  width: 30%;
+  padding: 16px;
+}
+
+.bar-buttons {
+  display: flex;
+  /* display: none; */
+  width: 20%;
+}
+.progressbar-container {
+  display: none;
+  background-color: #c4c4c4;
+  width: 80%;
+  height: 17px;
+  border-radius: 10px;
+  border: 2px solid #c4c4c4;
+  margin-right: 10px;
+}
+.progressbar {
+  height: 16px;
+  width: 0%;
+  background-color: #4c9a2a;
+  border-radius: 10px;
+  transition: 1s all;
+}
+.button-cancel {
+    display: none;
+    background-color: #808080;
+    margin-right: 16px;
+    height: 24px;
+    width: 24px;
+    line-height: 8px;
+    padding: 0;
+    border-radius: 50%;
+    color: #fff;
+    border: none;
+  }
