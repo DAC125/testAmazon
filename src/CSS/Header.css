@@ -1,0 +1,98 @@
+
+
+.header {
+    background-color: #fff;
+    border-bottom: 4px solid #2aafeb;
+    height: 71px;
+    margin-bottom: 132px;
+    position: fixed;
+    top: 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    z-index: 100000;
+}
+
+.header::before{
+    background-image: url('./../Images/curls.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 1109px;
+    content: "";
+    height: 70px;
+    left: 50%;
+    position: absolute;
+    top: 75px;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    width: 1106px;
+}
+
+.content {
+    margin: auto;
+    max-width: 1216px;
+    position: relative;
+    width: inherit;
+}
+
+#logo {
+    background-color: #fff;
+    background-image: url('./../Images/logo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 121px;
+    border-radius: 50%;
+    box-shadow: 0px 36px 90px -40px rgb(0 0 0 / 42%);
+    height: 121px;
+    left: 50%;
+    position: absolute;
+    top: 5px;
+    transform: translateX(-50%);
+    transition: all 0.2s ease;
+    width: 121px;
+}
+#logo p {
+    color: #303030;
+    font-family: 'Philosopher', sans-serif;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    top: 140px;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+#logo p span{
+    display: block;
+}
+#logo p span:nth-child(1){
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    line-height: 18px;
+}
+#logo p span:nth-child(2){
+    font-size: 26px;
+    font-weight: 700;
+}
+
+
+.header.active {
+    border-bottom: 3px solid #2aafeb;
+    height: 50px;
+    margin-bottom: 100px;
+    position: fixed;
+    top: 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    z-index: 100000;
+}
+
+
+.header.active::before {
+    top: 55px;
+    background-size: 1000px;
+}
+
+.content.active span{
+   visibility: hidden;
+}

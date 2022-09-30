@@ -1,0 +1,14 @@
+.box{
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border: 1px solid #97BCF3;
+    background: rgba(196, 196, 196, 0.06);
+}
+
+.boldText{
+    font-weight: bold;
+}
+.redText{
+    color: red
+}

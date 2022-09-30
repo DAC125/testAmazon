@@ -1,0 +1,15 @@
+.title-data{
+    margin-top: 100px;
+    color: #24ACEA;
+}
+.data-details {
+   display: grid;
+}
+
+.input-data-detail {
+    width: 70%;
+    height: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: hwb(0 85% 15%);
+}

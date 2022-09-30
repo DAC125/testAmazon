@@ -1,0 +1,17 @@
+.titleSignature {
+    position: absolute;
+    font-family: 'Philosopher', sans-serif;
+    font-size: 26px;
+    font-weight: 100;
+    color: #FF5505;
+    border-top: 4px solid #FF5505;
+    border-bottom: none;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.data {
+    margin-top: 100px;
+}
