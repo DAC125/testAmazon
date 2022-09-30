@@ -15,7 +15,7 @@ const InputFile = (props) => {
   const handleClick = () => {
     contentBar.current.style.display = "none";
     closeBtn.current.style.display = "none";
-    downloadBtn.current.style.display = "none";
+    // downloadBtn.current.style.display = "none";
     bar.current.style.width = "0%";
     input.current.value = null;
     props.uploadFile("");
@@ -35,7 +35,7 @@ const InputFile = (props) => {
   const handleChange = async (e) => {
     contentBar.current.style.display = "block";
     closeBtn.current.style.display = "block";
-    downloadBtn.current.style.display = "block";
+    // downloadBtn.current.style.display = "block";
 
     await timeout(50);
 
