@@ -11,6 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 import Title from "../Components/Title";
+import InputFile from "../Components/InputFile";
 import { useForm } from "react-hook-form";
 
 import "./../CSS/Form.css";
@@ -19,6 +20,7 @@ import "./../CSS/Container.css";
 const Form = () => {
   const [accept, setAccept] = React.useState(false);
   const [showInput, setShowInput] = useState(false);
+  // const [ file, setFile ] = useState(null)
 
   const [dataUser, setDataUser] = useState({
     name: "",
@@ -222,6 +224,7 @@ const Form = () => {
                 CONTINUAR{" "}
               </button>
             </div>
+            {/* <InputFile title="test 1" uploadFile={setFile} file={file} isDownloadable={true}/> */}
           </div>
         </form>
       </div>
