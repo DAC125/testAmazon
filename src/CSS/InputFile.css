@@ -42,6 +42,17 @@
   border: none;
 }
 
-.download-btn {
-  width: 15%;
+.btn-file {
+  width: 48%;
+}
+
+.btn-container{
+  display: flex;
+  justify-content: space-between;
+  width: 26%;
+}
+.input-container{
+  display: none;
+  width: 40%;
+  
 }

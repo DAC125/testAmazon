@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./../CSS/InputFile.css";
 
 const InputFile = (props) => {
@@ -6,16 +6,22 @@ const InputFile = (props) => {
   const closeBtn = useRef(null);
   const bar = useRef(null);
   const input = useRef(null);
+  const inputContainer = useRef(null);
   const downloadBtn = useRef(null);
+  const updateBtn = useRef(null);
+  const barBtn = useRef(null);
 
   const timeout = (delay) => {
     return new Promise((res) => setTimeout(res, delay));
   };
 
   const handleClick = () => {
+    if(props.isDownloadable ){
+      downloadBtn.current.style.display = "none"
+      
+    }
     contentBar.current.style.display = "none";
     closeBtn.current.style.display = "none";
-    // downloadBtn.current.style.display = "none";
     bar.current.style.width = "0%";
     input.current.value = null;
     props.uploadFile("");
@@ -33,9 +39,12 @@ const InputFile = (props) => {
   };
 
   const handleChange = async (e) => {
+    if(props.isDownloadable ){
+      downloadBtn.current.style.display = "block"
+      
+    }
     contentBar.current.style.display = "block";
     closeBtn.current.style.display = "block";
-    // downloadBtn.current.style.display = "block";
 
     await timeout(50);
 
@@ -56,37 +65,100 @@ const InputFile = (props) => {
     downloadLink.click();
   };
 
+  const handleUpdate = () => {
+    inputContainer.current.style.display = "flex";
+    inputContainer.current.style.width = "40%";
+    updateBtn.current.style.display = "none";
+    barBtn.current.style.width = "50%"
+    
+  }
+
   return (
-    <div className="container">
-      <span className="span-input">{props.title}</span>
-      <input
-        id="input"
-        type="file"
-        accept="application/pdf"
-        onChange={handleChange}
-        ref={input}
-      />
+    <div>
+      {props.isDownloadable ? (
+        <div className="container">
+          <span className="span-input">{props.title}</span>
 
-      <div className="bar-buttons">
-        <div
-          id="content-bar"
-          className="progressbar-container"
-          ref={contentBar}
-        >
-          <div id="bar" className="progressbar" ref={bar}></div>
+          <div className="input-container" ref={inputContainer}>
+            <input
+              id="input"
+              type="file"
+              accept="application/pdf"
+              onChange={handleChange}
+              ref={input}
+            />
+
+            <div className="bar-buttons" ref={barBtn}>
+              <div
+                id="content-bar"
+                className="progressbar-container"
+                ref={contentBar}
+              >
+                <div id="bar" className="progressbar" ref={bar}></div>
+              </div>
+
+              <button
+                id="close-btn"
+                className="button-cancel"
+                type="button"
+                onClick={handleClick}
+                ref={closeBtn}
+              >
+                x
+              </button>
+            </div>
+          </div>
+
+          <div className="btn-container">
+            <button
+              className="btn-file"
+              onClick={handleUpdate}
+              ref={updateBtn}
+            >
+              Actualizar Archivo
+            </button>
+
+            <button
+              className="btn-file"
+              onClick={handleDownload}
+              ref={downloadBtn}
+            >
+              Descargar Archivo
+            </button>
+          </div>
         </div>
+      ) : (
+        <div className="container">
+          <span className="span-input">{props.title}</span>
+          <input
+            id="input"
+            type="file"
+            accept="application/pdf"
+            onChange={handleChange}
+            ref={input}
+          />
 
-        <button
-          id="close-btn"
-          className="button-cancel"
-          type="button"
-          onClick={handleClick}
-          ref={closeBtn}
-        >
-          x
-        </button>
-      </div>
-      {props.isDownloadable ? <button className="download-btn" onClick={handleDownload} ref={downloadBtn}>Descargar Archivo</button> : null}
+          <div className="bar-buttons">
+            <div
+              id="content-bar"
+              className="progressbar-container"
+              ref={contentBar}
+            >
+              <div id="bar" className="progressbar" ref={bar}></div>
+            </div>
+
+            <button
+              id="close-btn"
+              className="button-cancel"
+              type="button"
+              onClick={handleClick}
+              ref={closeBtn}
+            >
+              x
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

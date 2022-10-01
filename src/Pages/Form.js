@@ -20,7 +20,8 @@ import "./../CSS/Container.css";
 const Form = () => {
   const [accept, setAccept] = React.useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [ declaracion, setDeclaracion ] = useState(null)
+  // const [ test1, setTest1 ] = useState(null)
+  // const [ test2, setTest2 ] = useState(null)
 
   const [dataUser, setDataUser] = useState({
     name: "",
@@ -224,7 +225,9 @@ const Form = () => {
                 CONTINUAR{" "}
               </button>
             </div>
-            {/* <InputFile title="1. Declaracion Jurada" uploadFile={setDeclaracion} file={declaracion} isDownloadable={true}/> */}
+            {/* <InputFile title="1. Declaracion Jurada" uploadFile={setTest1} file={test1} isDownloadable={true}/>
+            <InputFile title="2. Declaracion No Jurada" uploadFile={setTest2} file={test2} isDownloadable={false}/> */}
+        
           </div>
         </form>
       </div>
