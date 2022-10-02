@@ -113,23 +113,26 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function MainTable() {
+export default function MainTable(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("seq");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState([]);
+  const [rows, setRows] = React.useState(props.data || [{
+  "status": "No encontrado",
+  "name": "No encontrado",
+  "idNumber": "No encontrado",
+  "email": "No encontrado",
+  "address": "No encontrado",
+  "seq": "No encontrado",
+}]);
 
-  let search = 1;
   useEffect(() => {
-    if (search === 1) {
-      axios.get(`http://localhost:3000/api/request/mainData`).then((res) => {
-        setRows(res.data);
-      });
-      search = 0;
+    if (props.data !== ''){
+      setRows(props.data)
     }
-  }, [search]);
+  }, [props.data]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";

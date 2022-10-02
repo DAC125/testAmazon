@@ -11,7 +11,6 @@ import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 import Title from "../Components/Title";
-import InputFile from "../Components/InputFile";
 import { useForm } from "react-hook-form";
 
 import "./../CSS/Form.css";
@@ -20,8 +19,7 @@ import "./../CSS/Container.css";
 const Form = () => {
   const [accept, setAccept] = React.useState(false);
   const [showInput, setShowInput] = useState(false);
-  const [ test1, setTest1 ] = useState(null)
-  const [ test2, setTest2 ] = useState(null)
+  const [deleteNumber2,setDeleteNumber2] = useState(false);
 
   const [dataUser, setDataUser] = useState({
     name: "",
@@ -43,13 +41,9 @@ const Form = () => {
 
   let navigate = useNavigate();
 
-  const handleChange = (event) => {
-    setDataUser({ ...dataUser, [event.target.name]: event.target.value });
-  };
-
   const deleteInput = () => {
     setShowInput(false);
-    setDataUser({ ...dataUser, ["phoneNumber2"]: "" });
+    setDeleteNumber2(true);
   };
 
   const {
@@ -57,8 +51,10 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const handleRegistration = (data) => {
-    navigate("/Form2", { state: data });
+    const information = {data: data, delete: deleteNumber2};
+    navigate("/Form2", { state: information});
   };
   const handleError = (errors) => {};
 
@@ -166,8 +162,8 @@ const Form = () => {
                       className="inputForm"
                       type="text"
                       name="phoneNumber2"
-                      value={dataUser.phoneNumber2}
-                      onChange={handleChange}
+                      {...register("phoneNumber2", registerOptions.phoneNumber2)}
+
                     />
                     <IconButton onClick={deleteInput}>
                       <ClearIcon sx={{ color: "red", fontSize: 20 }} />
@@ -225,9 +221,6 @@ const Form = () => {
                 CONTINUAR{" "}
               </button>
             </div>
-            <InputFile title="1. Declaracion Jurada" uploadFile={setTest1} file={test1} isDownloadable={true}/>
-            <InputFile title="2. Declaracion No Jurada" uploadFile={setTest2} file={test2} isDownloadable={false}/>
-        
           </div>
         </form>
       </div>
@@ -236,14 +229,3 @@ const Form = () => {
 };
 
 export default Form;
-
-/*        <div className="aa">
-            <p>1. Nombre completo:</p>
-            <input
-              className="inputForm name"
-              type="text"
-              name="name"
-              value={dataUser.name}
-              onChange={handleChange}
-            />
-          </div>*/

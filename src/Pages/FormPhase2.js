@@ -1,7 +1,4 @@
-import React from "react";
-import "./../CSS/Form.css";
-import "./../CSS/FormPhase2.css";
-import "./../CSS/Container.css";
+import React, { useState } from "react";
 import Subitle from "../Components/Subtitle";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -13,14 +10,19 @@ import Title from "../Components/Title";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./../CSS/Form.css";
+import "./../CSS/FormPhase2.css";
+import "./../CSS/Container.css";
 
 const FormPhase2 = () => {
   let navigate = useNavigate();
   const location = useLocation();
-
   const [accept, setAccept] = React.useState(true);
   const [status, setStatus] = React.useState("yes");
-
+  const [file1, setFile1] = useState(null);
+  const [file2, setFile2] = useState(null);
+  const [file3, setFile3] = useState(null);
+  
   //Handler the Radio Button Click
   function handleClick(event) {
     if (event.target.value === "yes") {
@@ -33,26 +35,32 @@ const FormPhase2 = () => {
   }
 
   const handleSubmit = () => {
-    
-    const data = {
-      status: "Pendiente",
-      name: location.state.name,
-      idNumber: location.state.idNumber,
-      email: location.state.email,
-      phoneNumber1: location.state.phoneNumber1,
-      phoneNumber2: location.state.phoneNumber2 || '',
-      address: location.state.address,
-      declaration: "",
-      certificate: "",
-      paymentProof: "",
-      digitalSignature: accept ? 'yes' : 'no'
-    };
+    const condition1 = file1 === "" || file2 === "" || file3 === "";
+    const condition2 = file1 === null || file2 === null || file3 === null;
 
-    axios.post(`http://localhost:3000/api/request/`, {data}).then((res) => {
-      console.log(res);
-    });
+    if (condition1 || condition2) {
+      console.log("No se subieron todos los archivos");
+    } else {
+      const data = {
+        status: "Pendiente",
+        name: location.state.data.name,
+        idNumber: location.state.data.idNumber,
+        email: location.state.data.email,
+        phoneNumber1: location.state.data.phoneNumber1,
+        phoneNumber2: location.state.delete === true ? "" : location.state.data.phoneNumber2 || "",
+        address: location.state.data.address,
+        digitalSignature: accept ? "yes" : "no",
+        declaration: file1, 
+        certificate : file2,
+        paymentProof : file3
+      };
 
-    navigate("/SuccessRegister");
+      axios.post(`http://localhost:3000/api/request/`, { data }).then((res) => {
+        console.log(res);
+      });
+
+      navigate("/SuccessRegister");
+    }
   };
 
   return (
@@ -79,12 +87,32 @@ const FormPhase2 = () => {
             </RadioGroup>
           </FormControl>
           <br></br>
-          <div> {accept ? <Signature /> : <NonSignature />}</div>
+          <div>
+            {" "}
+            {accept ? (
+              <Signature
+                uploadFile1={setFile1}
+                file1={file1}
+                uploadFile2={setFile2}
+                file2={file2}
+                uploadFile3={setFile3}
+                file3={file3}
+              />
+            ) : (
+              <NonSignature
+                uploadFile1={setFile1}
+                file1={file1}
+                uploadFile2={setFile2}
+                file2={file2}
+                uploadFile3={setFile3}
+                file3={file3}
+              />
+            )}
+          </div>
           <button className="btn" onClick={handleSubmit}>
             {" "}
             ENVIAR FORMULARIO{" "}
           </button>
-          
         </div>
       </div>
     </div>

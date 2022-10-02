@@ -75,7 +75,7 @@
     width: 100%;
   } */
   .btn-container{
-    height: 100px;
+    height: 30px;
     width: 100%;
   }
   .bar-buttons{
@@ -86,6 +86,13 @@
   }
   .progressbar-container{
     width: 100%;
+  }
+}
+
+@media screen and (min-width: 1081px) {
+  .btn-container{
+    height: 30px;
+    width: 300px;
   }
 
 }

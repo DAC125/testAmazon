@@ -1,11 +1,10 @@
 .content {
     padding-top: 55px;
-    padding-left: 20px;
 }
 
 .form {
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .colorLabel{
@@ -81,4 +80,23 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+@media screen and (max-width: 630px) {
+    .form {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .inputForm {
+        width: 100%;
+    }
+
+    .btn{
+        width: 150px;
+        font-size: 24px;
+        padding-left: 0;
+        padding-right: 0;
+
+    }
 }

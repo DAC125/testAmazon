@@ -51,7 +51,6 @@ const InputFile = (props) => {
 
     getBase64(e.target.files[0], (result) => {
       props.uploadFile(result);
-      console.log(result);
     });
   };
 

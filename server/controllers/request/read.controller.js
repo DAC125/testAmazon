@@ -18,6 +18,7 @@ rRequestCtrl.getRequest = async (req, res) => {
 
 
 rRequestCtrl.getStatusRequest = async (req, res) => {
+     console.log(req.params.status);
      const request = await Request.aggregate([{ $match: { status: req.params.status }}]);
      res.json(request);
 };

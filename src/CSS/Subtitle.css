@@ -3,7 +3,15 @@
     font-style: normal;
     font-weight: 500;
     font-size: 31px;
-    line-height: 16px;
     text-align: center;
     color: #24ACEA;
+}
+
+@media screen and (max-width: 630px) {
+    .subtitle {
+        padding-top: 30px;
+        padding-bottom: 10px;
+        font-weight: 540;
+        font-size: 25px;
+    }
 }

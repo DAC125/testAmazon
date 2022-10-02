@@ -25,3 +25,15 @@
     width:  300px;
     border-radius: 5px;
 }
+
+.filter {
+    margin-top: 40px;
+    color: white;
+}
+
+
+@media screen and (max-width: 630px) {
+    .Navbar {
+      width: 900px;
+    }
+}
