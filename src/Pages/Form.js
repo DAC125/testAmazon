@@ -15,8 +15,6 @@ import { useForm } from "react-hook-form";
 import CreatePDF from "../Components/CreatePDF";
 
 
-import {PDFViewer} from "@react-pdf/renderer";
-
 import "./../CSS/Form.css";
 import "./../CSS/Container.css";
 
@@ -24,6 +22,7 @@ const Form = () => {
   const [accept, setAccept] = React.useState(false);
   const [showInput, setShowInput] = useState(false);
   const [deleteNumber2,setDeleteNumber2] = useState(false);
+  const [doc, setDoc] = useState('');
 
   const [dataUser, setDataUser] = useState({
     name: "",
@@ -228,7 +227,8 @@ const Form = () => {
             </div>
           </div>
         </form>
-        <CreatePDF/>
+        <CreatePDF setDocumentPDF={setDoc}/>
+        <h1>{doc}</h1>
     
       </div>
     </div>

@@ -3,62 +3,43 @@ import {
   Document,
   Page,
   Text,
-  PDFViewer,
-  Image,
-  View
+  // PDFViewer,
+  View,
 } from "@react-pdf/renderer";
-import { useState } from "react";
+import React from "react";
 
-// src/Images/logo.png
-// src/Components/CreatePDF.js
 const MyDoc = (
   <Document>
     <Page size="A4">
-        <View>
-        {/* <Image src="https://ibb.co/82pgFdv" /> */}
-      <Text>hola mundo</Text>
-        </View>
-      
+      <View>
+        <Text>hola mundo</Text>
+      </View>
     </Page>
   </Document>
 );
 
-const CreatePDF = () => {
-  const [instance, updateInstance] = usePDF({ document: MyDoc });
-
-  const [text, setText] = useState("");
+const CreatePDF = (props) => {
+  const [instance] = usePDF({ document: MyDoc });
 
   const getBase64 = (file, cb) => {
     let reader = new FileReader();
-    reader.readAsDataURL(instance.blob);
+    reader.readAsDataURL(file);
     reader.onloadend = function () {
-      let base64data = reader.result;
-      console.log(base64data);
+      cb(reader.result);
     };
   };
 
   const handleClick = () => {
-    // console.log(instance.blob);
-
-    // var reader = new FileReader();
-    // reader.readAsDataURL(instance.blob);
-    // reader.onloadend = function () {
-    //   var base64data = reader.result;
-    //   console.log(base64data);
-    // };
-    getBase64(instance, (result) => {
-      setText(result);
+    getBase64(instance.blob, (result) => {
+      console.log(result);
+      props.setDocumentPDF(result);
     });
   };
 
-  if (instance.loading) return <div>Loading ...</div>;
-
-  //   if (instance.error) return <div>Something went wrong: {error}</div>;
-
   return (
     <div>
-    <PDFViewer style={{ width: "100%", height: "100%" }}>{MyDoc}</PDFViewer>
-    <button onClick={handleClick}> base64</button>
+      {/* <PDFViewer style={{ width: "100%", height: "100%" }}>{MyDoc}</PDFViewer> */}
+      <button onClick={handleClick}> base64</button>
     </div>
   );
 };
