@@ -55,6 +55,7 @@ cRequestCtrl.insertRequest = async (req, res) => {
                if (!requestSave) return res.status(404).json({ msg: "The request could not be registered" });
                let email = req.body.data.email;
                let seq = data.seq;
+               // let pdf = req.body.data.pdf
                await sendEmail({seq, email});
                return res.status(200).json({ message: "Request Created!" });
           } else {
@@ -76,6 +77,7 @@ async function sendEmail(req, res) {
 
      const htmlTemplate = htmlString;
      const emailRequester = req.email;
+     // console.log()
 
      console.log("subject", subject);
   

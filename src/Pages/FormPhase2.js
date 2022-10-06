@@ -22,6 +22,7 @@ const FormPhase2 = () => {
   const [file1, setFile1] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
+
   
   //Handler the Radio Button Click
   function handleClick(event) {
@@ -52,7 +53,9 @@ const FormPhase2 = () => {
         digitalSignature: accept ? "yes" : "no",
         declaration: file1, 
         certificate : file2,
-        paymentProof : file3
+        paymentProof : file3,
+       
+
       };
 
       axios.post(`http://localhost:3000/api/request/`, { data }).then((res) => {
@@ -109,6 +112,7 @@ const FormPhase2 = () => {
               />
             )}
           </div>
+          
           <button className="btn" onClick={handleSubmit}>
             {" "}
             ENVIAR FORMULARIO{" "}

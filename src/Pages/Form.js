@@ -12,6 +12,10 @@ import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 import Title from "../Components/Title";
 import { useForm } from "react-hook-form";
+import CreatePDF from "../Components/CreatePDF";
+
+
+import {PDFViewer} from "@react-pdf/renderer";
 
 import "./../CSS/Form.css";
 import "./../CSS/Container.css";
@@ -96,7 +100,7 @@ const Form = () => {
 
       <div className="content">
         <Subtitle subtitle="Solicitud de exoneración de bien único" />
-        <TextBox />
+        <TextBox /> 
         <form onSubmit={handleSubmit(handleRegistration, handleError)}>
           <div className="form">
             <div className="aa">
@@ -216,6 +220,7 @@ const Form = () => {
                 </RadioGroup>
               </FormControl>
               <br></br>
+              
               <button disabled={!accept} className="btn">
                 {" "}
                 CONTINUAR{" "}
@@ -223,6 +228,8 @@ const Form = () => {
             </div>
           </div>
         </form>
+        <CreatePDF/>
+    
       </div>
     </div>
   );
