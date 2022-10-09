@@ -1,0 +1,84 @@
+.inputForm-dec {
+    box-sizing: border-box;
+    height: 25px;
+    background: #E4E5EB;
+    border: 1px solid #F2F3F8;
+    width: 300px;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    padding-left: 3px;
+}
+
+.input-date {
+    width: 125px;
+}
+
+.signature {
+    padding-left: 5%;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.btn-dec{
+    margin: 30px 0;
+    margin-left: 40%;
+    align-items: center;
+    background-color: #24ACEA;
+    color: white;
+    border-color: #24ACEA;   
+    width: 240px;
+    text-transform: uppercase;
+    padding: 30px 0;
+    font-weight: 5px;
+    font-size: 22px;
+    line-height: 15px;
+}
+
+:hover.btn {
+    background-color: #16739e;
+}
+
+.title-declaration {
+    text-align: center;
+}
+
+.form-declaration {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-size: 20px;
+}
+  
+.data {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+#logo-dec {
+    background-image: url('./../Images/logo2.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 121px;
+    height: 159px;
+    left: 50%;
+    position: absolute;
+    top: 50px;
+    transform: translateX(-50%);
+    width: 121px;
+}
+  
+.text-danger {
+   color: red;
+}
+@media screen and (max-width: 630px) {
+    .btn-dec{
+        width: 150px;
+        font-size: 24px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 app.use(morgan('dev'));
 app.use(express.json());
 const  {mongoose} = require('./database');
 
-/*const cors = require('cors');
+const cors = require('cors');
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -15,8 +16,14 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(express.json({limit: '10000mb'}));
-app.use(cors({origin: 'http://localhost:4200'}));*/
+
+//app.use(express.json({limit: "5000000mb", extended: true}))
+//app.use(express.urlencoded({limit: "5000000mb", extended: true, parameterLimit: 5000000}))
+//app.use(express.json({limit: '25mb'}));
+//app.use(express.urlencoded({limit: '25mb'}));
+
+app.use(bodyParser.json({limit: '50mb'}));
+
 
 //Routes 
 app.use("/api/request",require("./routes/request.routes"));

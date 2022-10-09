@@ -12,6 +12,27 @@ const MyDoc = (
   <Document>
     <Page size="A4">
       <View>
+        <Text>hola mundo2</Text>
+      </View>
+      <View>
+        <Text>hola mundo</Text>
+      </View>
+      <View>
+        <Text>hola mundo</Text>
+      </View>
+      <View>
+        <Text>hola mundo</Text>
+      </View>
+      <View>
+        <Text>hola mundo</Text>
+      </View>
+      <View>
+        <Text>hola mundo</Text>
+      </View>
+      <View>
+        <Text>hola mundo</Text>
+      </View>
+      <View>
         <Text>hola mundo</Text>
       </View>
     </Page>
@@ -30,8 +51,11 @@ const CreatePDF = (props) => {
   };
 
   const handleClick = () => {
-    getBase64(instance.blob, (result) => {
-      console.log(result);
+    let file = new File([instance.blob], "test.pdf", {
+      type: "application/pdf",
+    });
+    getBase64(file, (result) => {
+      // console.log(result);
       props.setDocumentPDF(result);
     });
   };

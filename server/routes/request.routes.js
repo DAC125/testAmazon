@@ -13,7 +13,7 @@ router.get("/dateRequest/:iDate/:eDate", rRequestCtrl.getDateRequest);
 router.get("/specificRequest/:seq", rRequestCtrl.getRequest);
 
 router.post("/notAllowRequest", cRequestCtrl.notAllowRequest);
-router.put("/updatePersonalData/:seq", uRequestCtrl.updateRequest);
-router.put("/updatePhase/:seq", uRequestCtrl.updatePhase);
+router.post("/updateRequest/:seq", uRequestCtrl.updateRequest);
+router.post("/updatePhase/:seq", uRequestCtrl.updatePhase);
 
 module.exports = router;

@@ -7,6 +7,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import FaxIcon from '@mui/icons-material/Fax';
+import Header from "../Components/Header";
 
 const Register = () => {
   let navigate = useNavigate();
@@ -16,7 +17,9 @@ const Register = () => {
   };
 
   return (
-    <div className="wrapper-content">
+    <div>
+      <Header />
+      <div className="wrapper-content">
       <Title title="Exoneración de bienes inmuebles" />
       <div className="content-su">
         <Subitle subtitle="Estimado(a) solicitante," />
@@ -47,6 +50,7 @@ const Register = () => {
             <label>2454-1664</label> <br />
           </p>
         </div>
+    </div>
     </div>
   );
 };

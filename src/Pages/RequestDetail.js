@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Title from "../Components/Title";
 import "./../CSS/RequestDetail.css";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,11 +7,14 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import InputFile from "../Components/InputFile";
+import axios from "axios";
+import Header from "../Components/Header";
 
 export default function RequestDetail() {
   const location = useLocation();
 
   const [data, setData] = React.useState({
+    seq: location.state.seq || "",
     status: location.state.status || "",
     name: location.state.name || "",
     idNumber: location.state.idNumber || "",
@@ -24,10 +27,18 @@ export default function RequestDetail() {
   const [file1, setFile1] = useState(location.state.declaration || null);
   const [file2, setFile2] = useState(location.state.certificate || null);
   const [file3, setFile3] = useState(location.state.paymentProof || null);
-  const [acceptData, setAcceptData] = React.useState(true);
-  const [acceptFile1, setAcceptFile1] = React.useState(true);
-  const [acceptFile2, setAcceptFile2] = React.useState(true);
-  const [acceptFile3, setAcceptFile3] = React.useState(true);
+  const [acceptData, setAcceptData] = React.useState(
+    JSON.parse(location.state.acceptData || "false")
+  );
+  const [acceptFile1, setAcceptFile1] = React.useState(
+    JSON.parse(location.state.acceptFile1 || "false")
+  );
+  const [acceptFile2, setAcceptFile2] = React.useState(
+    JSON.parse(location.state.acceptFile2 || "false")
+  );
+  const [acceptFile3, setAcceptFile3] = React.useState(
+    JSON.parse(location.state.acceptFile3 || "false")
+  );
 
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
@@ -39,10 +50,51 @@ export default function RequestDetail() {
     formState: { errors },
   } = useForm();
 
-  const handleRegistration = (data) => console.log(data, file1, file2, file3);
+  const handleRegistration = (dataV) => {
+    if (acceptData && acceptFile1 && acceptFile2 && acceptFile3) {
+      const dataS = {
+        status: "Pendiente",
+        name: dataV.name,
+        idNumber: dataV.idNumber,
+        email: dataV.email,
+        phoneNumber1: dataV.phoneNumber1,
+        phoneNumber2: dataV.phoneNumber2 || "",
+        address: dataV.address,
+        declaration: file1,
+        certificate: file2,
+        paymentProof: file3,
+        acceptData: acceptData,
+        acceptFile1: acceptFile1,
+        acceptFile2: acceptFile2,
+        acceptFile3: acceptFile3,
+      };
+
+      axios
+        .post(`http://localhost:3000/api/request/updateRequest/${data.seq}`, {
+          dataS,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    } else {
+      console.log(
+        "No se puede enviar, alguno de los datos no ha sido aprobado"
+      );
+    }
+  };
 
   const handleError = (errors) => {};
 
+  const handleReject = (event) => {
+    const newPhase = { status: "Rechazado" };
+    axios
+      .post(`http://localhost:3000/api/request/updatePhase/${data.seq}`, {
+        newPhase,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
   const handleChangeAcceptData = (event) => {
     setAcceptData(event.target.checked);
   };
@@ -98,8 +150,20 @@ export default function RequestDetail() {
     },
   };
 
+  useEffect(() => {
+    if (acceptData && acceptFile1 && acceptFile2 && acceptFile3) {
+      console.log(
+        "Desea actualizar los datos y el estado de solicitud por aceptado?"
+      );
+    }
+
+    //Yes update data, and validate files are no empty
+  }, [acceptData, acceptFile1, acceptFile2, acceptFile3]);
+
   return (
-    <div className="wrapper-content">
+    <div>
+      <Header />
+      <div className="wrapper-content">
       <Title title="Exoneración de bienes inmuebles" />
       <div>
         <h3 className="title-data">Datos del solicitante</h3>
@@ -205,18 +269,19 @@ export default function RequestDetail() {
                   isDownloadable={true}
                 />
               </div>
-
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={acceptFile1}
-                      onChange={handleChangeAcceptFile1}
-                    />
-                  }
-                  label="Declaracion Jurada"
-                />
-              </FormGroup>
+              <div className="file-checkbox">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={acceptFile1}
+                        onChange={handleChangeAcceptFile1}
+                      />
+                    }
+                    label="Declaracion Jurada"
+                  />
+                </FormGroup>
+              </div>
             </div>
 
             <div className="files">
@@ -228,17 +293,19 @@ export default function RequestDetail() {
                   isDownloadable={true}
                 />
               </div>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={acceptFile2}
-                      onChange={handleChangeAcceptFile2}
-                    />
-                  }
-                  label="Certificación registro nacional"
-                />
-              </FormGroup>
+              <div className="file-checkbox">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={acceptFile2}
+                        onChange={handleChangeAcceptFile2}
+                      />
+                    }
+                    label="Certificación registro nacional"
+                  />
+                </FormGroup>
+              </div>
             </div>
 
             <div className="files">
@@ -250,7 +317,7 @@ export default function RequestDetail() {
                   isDownloadable={true}
                 />
               </div>
-
+              <div className="file-checkbox">
                 <FormGroup>
                   <FormControlLabel
                     control={
@@ -262,14 +329,18 @@ export default function RequestDetail() {
                     label="Comprobante de pago"
                   />
                 </FormGroup>
+              </div>
             </div>
           </div>
           <div className="btn-container-detail">
             <button className="btn-detail1">Enviar Comprobante</button>
           </div>
         </form>
-        <button className="btn-detail2">Rechazar Solicitud</button>
+        <button onClick={handleReject} className="btn-detail2">
+          Rechazar Solicitud
+        </button>
       </div>
+    </div>
     </div>
   );
 }

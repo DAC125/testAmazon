@@ -73,6 +73,14 @@
 
 }
 
+.file-details {
+    width: 80%;
+}
+
+.file-checkbox {
+    width: 20%;
+}
+
 @media screen and (max-width: 1080px) {
     .btn-detail1{
         margin-left: 10%;

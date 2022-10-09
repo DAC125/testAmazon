@@ -55,8 +55,8 @@ cRequestCtrl.insertRequest = async (req, res) => {
                if (!requestSave) return res.status(404).json({ msg: "The request could not be registered" });
                let email = req.body.data.email;
                let seq = data.seq;
-               // let pdf = req.body.data.pdf
-               await sendEmail({seq, email});
+               let file = req.body.data.file4;
+               await sendEmail({seq, email, file});
                return res.status(200).json({ message: "Request Created!" });
           } else {
                return res.status(404).json({ msg: "The request could not be registered" });
@@ -71,15 +71,14 @@ cRequestCtrl.insertRequest = async (req, res) => {
 async function sendEmail(req, res) {
      const pathToAttachment = `src/Images/logo.png`;
      const attachment = fs.readFileSync(pathToAttachment).toString("base64");
-     const subject = 'Plataforma de Servicios Municipalidad de Sarchí';
+     const attachment2 = req.file.split(",")[1];
+
+     const subject = 'Mensaje de registro de respuesta del formulario y confirmación';
      const footerEmail = '<br><div><p>Gracias</p><p>Saludos</p> <p><img src="cid:myimagecid"/><p> </div>';
      const htmlString = '<div> <p>Estimado(a) solicitante,<p> <br> </br>Se ha enviado correctamente toda la documentación y requisitos para el trámite de exoneración de bienes inmuebles de la Municipalidad de Sarchí. A continuación se adjunta. Su número de solicitud es: ' + req.seq + '</div> <br>' + footerEmail;
 
      const htmlTemplate = htmlString;
      const emailRequester = req.email;
-     // console.log()
-
-     console.log("subject", subject);
   
      sgMail.send({
           to: emailRequester,
@@ -89,6 +88,12 @@ async function sendEmail(req, res) {
 
           attachments: [
                {
+                    filename: "attachment.pdf",
+                    type: "application/pdf",
+                    content: attachment2,
+                    disposition: "attachment"
+               },
+               {
                     filename: "src/Images/logo.png",
                     type: "image/png",
                     content: attachment,
@@ -97,8 +102,8 @@ async function sendEmail(req, res) {
                }
           ]
      }).catch((error) => {
-          console.log("Error", error.response.body)
-          return res.status(404).json({ message: error.response.body });
+          console.log("Error", error)
+          return res.status(404).json({ message: error });
      });
 }
 
@@ -106,7 +111,7 @@ async function sendEmail(req, res) {
 cRequestCtrl.notAllowRequest = async (req, res) => {    
      const pathToAttachment = `logo.png`;
      const attachment = fs.readFileSync(pathToAttachment).toString("base64");
-     const subject = 'Plataforma de Servicios Municipalidad de Acosta';
+     const subject = 'Plataforma de Servicios Municipalidad de Sarchí';
      const footerEmail = '<br><div><p>Gracias</p><p>Saludos</p> <p><img src="cid:myimagecid"/><p> </div>';
      const htmlString = '<div> <p>Estimado(a) solicitante,<p> <br> </br>Su solicitud número ' + req.body.data.seq + ' No ha sido aceptada ' + req.body.data.reason +  '</div> <br>' + footerEmail;
 

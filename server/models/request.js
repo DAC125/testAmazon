@@ -22,7 +22,11 @@ const request = new Schema({
     stateCertificate:  {type: String, requires: true},
     paymentProof: {type: String, requires: true},
     statePaymentProof: {type: String, requires: true},
-    creationDate: { type: String, requires: true }
+    creationDate: { type: String, requires: true },
+    acceptData : { type: String, requires: true },
+    acceptFile1 : { type: String, requires: true },
+    acceptFile2 : { type: String, requires: true },
+    acceptFile3 : { type: String, requires: true },
 });
 
 

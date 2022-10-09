@@ -10,6 +10,8 @@ import Title from "../Components/Title";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import CreatePDF from "../Components/CreatePDF";
+import Header from "../Components/Header";
 import "./../CSS/Form.css";
 import "./../CSS/FormPhase2.css";
 import "./../CSS/Container.css";
@@ -23,6 +25,7 @@ const FormPhase2 = () => {
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
 
+  const [file4, setFile4] = useState(null);
   
   //Handler the Radio Button Click
   function handleClick(event) {
@@ -52,22 +55,39 @@ const FormPhase2 = () => {
         address: location.state.data.address,
         digitalSignature: accept ? "yes" : "no",
         declaration: file1, 
-        certificate : file2,
-        paymentProof : file3,
-       
-
+        //certificate : file2,
+        //paymentProof : file3,
+        file4: file4,
+        acceptData : false,
+        acceptFile1 : false,
+        acceptFile2 : false,
+        acceptFile3 : false
       };
-
-      axios.post(`http://localhost:3000/api/request/`, { data }).then((res) => {
+      axios.post(
+        `http://localhost:3000/api/request/`, 
+        { data }).then((res) => {
         console.log(res);
       });
+
+      /*axios({
+        method: 'post',
+        url: `http://localhost:3000/api/request/`,
+        data: JSON.stringify(data),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        maxContentLength: Infinity,
+        maxBodyLength: Infinity
+      }).catch(err => {
+        throw err;
+     })*/
 
       navigate("/SuccessRegister");
     }
   };
 
   return (
-    <div className="wrapper-content">
+    <div>
+      <Header />
+      <div className="wrapper-content">
       <Title title="Exoneración de bienes inmuebles" />
       <div className="content">
         <Subitle subtitle="Solicitud de inicio de proceso de exoneración de bien único" />
@@ -112,13 +132,15 @@ const FormPhase2 = () => {
               />
             )}
           </div>
-          
           <button className="btn" onClick={handleSubmit}>
             {" "}
             ENVIAR FORMULARIO{" "}
           </button>
         </div>
       </div>
+      <CreatePDF setDocumentPDF={setFile4}/>
+      <h1>{file4}</h1>
+    </div>
     </div>
   );
 };
