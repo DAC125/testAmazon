@@ -7,7 +7,6 @@ const cors = require('cors');
 // app.use(express.json());
 const  {mongoose} = require('./database');
 
-
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
@@ -17,7 +16,6 @@ app.use(function (req, res, next) {
 
 app.use(express.json({limit: '200mb'}));
 app.use(morgan('dev'));
-app.use(express.json());
 app.use(cors({origin: 'http://localhost:3001'}));
 
 

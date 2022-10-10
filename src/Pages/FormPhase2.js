@@ -10,9 +10,8 @@ import Title from "../Components/Title";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { createPDF } from "../Components/CreatePDF";
+import CreatePDF from "../Components/CreatePDF";
 import Header from "../Components/Header";
-import {Buffer} from 'buffer';
 
 import "./../CSS/Form.css";
 import "./../CSS/FormPhase2.css";
@@ -26,8 +25,6 @@ const FormPhase2 = () => {
   const [file1, setFile1] = useState(null);
   const [file2, setFile2] = useState(null);
   const [file3, setFile3] = useState(null);
-
-  const [file4, setFile4] = useState(null);
   
   //Handler the Radio Button Click
   function handleClick(event) {
@@ -67,8 +64,8 @@ const FormPhase2 = () => {
       axios.post(`http://localhost:3000/api/request/`, { data }).then( async (res) => {
         console.log(res.data.sequence);
         navigate("/SuccessRegister");
-        data={...data, seq: res.data.sequence}
-        const docBase64 = await createPDF({doc: "declaracion", data:{data}})
+        data={...data, seq: res.data.seq}
+        const docBase64 = await CreatePDF({doc: "voucher", data:{data}})
         // console.log(data)
         const dataFile = {
           email: location.state.data.email,
@@ -153,7 +150,6 @@ const FormPhase2 = () => {
           </button>
         </div>
       </div>
-      <h1>{file4}</h1>
     </div>
     </div>
   );

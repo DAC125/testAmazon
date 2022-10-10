@@ -1,4 +1,3 @@
-
 import {
   Document,
   Page,
@@ -6,10 +5,9 @@ import {
   View,
   StyleSheet,
   Image,
-  pdf
+  pdf,
 } from "@react-pdf/renderer";
-import React, { useEffect, useState } from "react";
-// import "../CSS/CreatePDF.css";
+import React from "react";
 import logo from "../Images/logo.png";
 
 const getBase64 = (file) => {
@@ -17,15 +15,12 @@ const getBase64 = (file) => {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = function () {
-      resolve(reader.result)
+      resolve(reader.result);
     };
-  })
-  
+  });
 };
 
-
-
-export async function createPDF(props) {
+export default async (props) => {
   let now = new Date();
   let day = String(now.getDate() + 1);
   let month = String(now.getMonth() + 1);
@@ -56,6 +51,12 @@ export async function createPDF(props) {
     text: {
       marginBottom: "20px",
     },
+    greetingsText: {
+      marginLeft: "10px",
+      fontSize: "13px",
+      marginTop: "40px",
+      marginBottom: "10px",
+    },
     textDots: {
       marginTop: "10px",
       marginLeft: "50px",
@@ -64,6 +65,13 @@ export async function createPDF(props) {
     textSign: {
       marginTop: "150px",
       textAlign: "center",
+    },
+    contact: {
+      marginTop: "100px",
+      textAlign: "center",
+    },
+    contactTitle: {
+      fontWeight: "800",
     },
     section: { textAlign: "center", margin: 30 },
   });
@@ -100,9 +108,7 @@ export async function createPDF(props) {
               <View style={styles.textDots}>
                 <Text> • Estar al dia con los pagos municipales</Text>
                 <Text> • Contar con un único bien a nivel nacional</Text>
-                <Text>
-                  {" "}
-                  • Certificación del Registro Publico Nacional donde indica que
+                <Text> • Certificación del Registro Publico Nacional donde indica que
                   posee un único bien inmueble a nivel nacional
                 </Text>
               </View>
@@ -131,6 +137,92 @@ export async function createPDF(props) {
             <View style={styles.title}>
               <Text>Comprobantte de trámite de exoneración de bien único</Text>
             </View>
+
+            <View style={styles.body}>
+              <Text style={styles.greetingsText}>
+                Estimada persona usuaria,{" "}
+              </Text>
+              <Text style={styles.text}>
+                Se ha generado el comprobante No {props.data.seq} a nombre de{" "}
+                {props.data.name}, cédula de identidad {props.data.idNumber}, y
+                dirección física {props.data.address} sobre la solicitid de
+                trámite de exoneración de bien único de la Municipalidad de
+                Sarchí{" "}
+              </Text>
+              <View style={styles.contact}>
+                <Text style={styles.contactTitle}>
+                  Para más información sobre el tramite contactar:
+                </Text>
+                <Text>melanie.marin@munisarchi.go.cr</Text>
+                <Text>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text>2454 4001, ext. 111</Text>
+                <Text>2454-1664</Text>
+              </View>
+            </View>
+          </Page>
+        </Document>
+      );
+      break;
+    case "failedRequest":
+      MyDoc = (
+        <Document>
+          <Page size="A4" style={styles.page}>
+            <View style={styles.image}>
+              <Image src={logo} />
+            </View>
+            <View style={styles.title}>
+              <Text>Comprobantte de trámite de exoneración de bien único</Text>
+            </View>
+    
+            <View style={styles.body}>
+              <Text style={styles.greetingsText}>Estimada persona usuaria, </Text>
+              <Text style={styles.text}>
+                Se ha rechazado su solicitud de trámite No {props.data.seq} a nombre
+                de {props.data.name}, cédula de identidad {props.data.idNumber} y
+                direccion física {props.data.address}. Favor contactar al departamento de Bienes Inmuebles en atención a su solicitud
+              </Text>
+              <View style={styles.contact}>
+                <Text style={styles.contactTitle}>
+                  Para más información sobre el tramite contactar:
+                </Text>
+                <Text>melanie.marin@munisarchi.go.cr</Text>
+                <Text>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text>2454 4001, ext. 111</Text>
+                <Text>2454-1664</Text>
+              </View>
+            </View>
+          </Page>
+        </Document>
+      );
+      break;
+    case "succesRequest":
+      MyDoc = (
+        <Document>
+          <Page size="A4" style={styles.page}>
+            <View style={styles.image}>
+              <Image src={logo} />
+            </View>
+            <View style={styles.title}>
+              <Text>Comprobantte de trámite de exoneración de bien único</Text>
+            </View>
+    
+            <View style={styles.body}>
+              <Text style={styles.greetingsText}>Estimada persona usuaria, </Text>
+              <Text style={styles.text}>
+                Se ha aceptado su solicitud de trámite No {props.data.seq} a nombre
+                de {props.data.name}, cédula de identidad {props.data.idNumber} y
+                direccion física {props.data.address}. 
+              </Text>
+              <View style={styles.contact}>
+                <Text style={styles.contactTitle}>
+                  Para más información sobre el tramite contactar:
+                </Text>
+                <Text>melanie.marin@munisarchi.go.cr</Text>
+                <Text>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text>2454 4001, ext. 111</Text>
+                <Text>2454-1664</Text>
+              </View>
+            </View>
           </Page>
         </Document>
       );
@@ -140,7 +232,4 @@ export async function createPDF(props) {
   let file = await pdf(MyDoc).toBlob();
 
   return await getBase64(file);
-  
-
-
 }
