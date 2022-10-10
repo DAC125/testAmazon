@@ -1,0 +1,39 @@
+.Navbar {
+    height: 40px;
+    background-color: #24ACEA;
+    display: flex;
+    color: white;
+    margin-bottom: 50px;
+    padding-left: 80px;
+    margin-top: 140px;
+}
+
+.space {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 10px;
+}
+
+.navbar-text {
+    margin-top: 10px;
+}
+
+.input-filter {
+    margin-top: 9px;
+    background-color: #CAC8C8;
+    height: 20px;
+    width:  300px;
+    border-radius: 5px;
+}
+
+.filter {
+    margin-top: 40px;
+    color: white;
+}
+
+
+@media screen and (max-width: 630px) {
+    .Navbar {
+      width: 900px;
+    }
+}

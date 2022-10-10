@@ -1,0 +1,9 @@
+.title {
+    position: absolute;
+    font-family: 'Philosopher', sans-serif;
+    font-size: 26px;
+    font-weight: 100;
+    color: #FF5505;
+    border-bottom: 5px solid #FF5505;
+    padding-bottom: 5px;
+}

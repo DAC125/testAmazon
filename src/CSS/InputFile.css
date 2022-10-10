@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.span-input {
+  width: 300px;
+  padding: 16px;
+}
+
+.bar-buttons {
+  display: flex;
+  /* display: none; */
+  width: 50%;
+}
+.progressbar-container {
+  display: none;
+  background-color: #c4c4c4;
+  width: 80%;
+  height: 17px;
+  border-radius: 10px;
+  border: 2px solid #c4c4c4;
+  margin-right: 10px;
+}
+.progressbar {
+  height: 16px;
+  width: 0%;
+  background-color: #24ACEA;
+  border-radius: 10px;
+  transition: 1s all;
+}
+.button-cancel {
+  display: none;
+  background-color: #808080;
+  margin-right: 16px;
+  height: 24px;
+  width: 24px;
+  line-height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  color: #fff;
+  border: none;
+}
+
+.btn-file {
+  width: 48%;
+}
+
+.btn-container{
+  display: flex;
+  justify-content: space-between;
+  width: 26%;
+}
+.input-container{
+  display: flex;
+  /* width: 40%; */
+  
+}
+
+.aabb{ 
+  display: none;
+  width: 40%;
+}
+
+
+@media screen and (max-width: 1080px) {
+  .container{
+    display: block;
+  }
+  .aabb{
+    width: 100%;
+    align-items: center;
+  }
+  /* input{
+    width: 100%;
+  } */
+  .btn-container{
+    height: 30px;
+    width: 100%;
+  }
+  .bar-buttons{
+    width: 100%;
+  }
+  .input-container{ 
+    display: block;
+  }
+  .progressbar-container{
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1081px) {
+  .btn-container{
+    height: 30px;
+    width: 300px;
+  }
+
+}
