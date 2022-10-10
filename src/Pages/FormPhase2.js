@@ -10,7 +10,7 @@ import Title from "../Components/Title";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import CreatePDF from "../Components/CreatePDF";
+import { createPDF } from "../Components/CreatePDF";
 import Header from "../Components/Header";
 import "./../CSS/Form.css";
 import "./../CSS/FormPhase2.css";
@@ -45,7 +45,7 @@ const FormPhase2 = () => {
     if (condition1 || condition2) {
       console.log("No se subieron todos los archivos");
     } else {
-      const data = {
+      let data = {
         status: "Pendiente",
         name: location.state.data.name,
         idNumber: location.state.data.idNumber,
@@ -57,25 +57,30 @@ const FormPhase2 = () => {
         declaration: file1, 
         certificate : file2,
         paymentProof : file3,
-        file4: file4,
         acceptData : false,
         acceptFile1 : false,
         acceptFile2 : false,
         acceptFile3 : false
       };
-      axios.post(`http://localhost:3000/api/request/`, { data }).then((res) => {
-        console.log(res);
+      axios.post(`http://localhost:3000/api/request/`, { data }).then( async (res) => {
+        console.log(res.data.sequence);
         navigate("/SuccessRegister");
-        /*const dataFile = {
+        data={...data, seq: res.data.sequence}
+        const docBase64 = await createPDF({doc: "declaracion", data:{data}})
+        // console.log(data)
+        const dataFile = {
           email: location.state.data.email,
-          file4: file4,
+          file4: docBase64,
+          seq: res.data.sequence,
         };
-        axios.post(`http://localhost:3000/api/request/sendEmailRequest/${res.msg}`, { dataFile }).then((res) => {
+        axios.post(`http://localhost:3000/api/request/sendEmailRequest/`, { dataFile }).then((res) => {
           console.log(res);
           
         }).catch((error) => {
           console.log(error)
-        });*/
+          navigate("/FailedRegister");
+        });
+
       }).catch((error) => {
         console.log(error);
         navigate("/FailedRegister");
@@ -146,7 +151,6 @@ const FormPhase2 = () => {
           </button>
         </div>
       </div>
-      <CreatePDF setDocumentPDF={setFile4}/>
       <h1>{file4}</h1>
     </div>
     </div>

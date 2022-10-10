@@ -14,5 +14,5 @@ router.get("/specificRequest/:seq", rRequestCtrl.getRequest);
 router.post("/notAllowRequest", cRequestCtrl.notAllowRequest);
 router.post("/updateRequest/:seq", uRequestCtrl.updateRequest);
 router.post("/updatePhase/:seq", uRequestCtrl.updatePhase);
-//router.post("/sendEmailRequest/:seq",cRequestCtrl.sendEmailRequest);
+router.post("/sendEmailRequest",cRequestCtrl.sendEmailRequest);
 module.exports = router;

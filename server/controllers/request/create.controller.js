@@ -53,11 +53,8 @@ cRequestCtrl.insertRequest = async (req, res) => {
                const requestSave = await Request.findByIdAndUpdate(request._id, { $set: data }, { new: true });
                
                if (!requestSave) return res.status(404).json({ msg: "The request could not be registered" });
-               let email = req.body.data.email;
-               let seq = data.seq;
-               let file = req.body.data.file4;
-               await sendEmail({seq, email, file});
-               return res.status(200).json({ message: seq });
+
+               return res.status(200).json({ sequence: data.seq });
           } else {
                return res.status(404).json({ msg: "The request could not be registered" });
           }
@@ -67,21 +64,26 @@ cRequestCtrl.insertRequest = async (req, res) => {
 };
 
 
-/*cRequestCtrl.sendEmailRequest = async (req, res) => {
+cRequestCtrl.sendEmailRequest = async (req, res) => {
      try {
-          let email = req.body.data.email;
-          let seq = req.params.seq;
-          let file = req.body.data.file4;
+          let email = req.body.dataFile.email;
+          let seq = req.body.dataFile.seq;
+          let file = req.body.dataFile.file4;
           await sendEmail({seq, email, file});
+          // if (!send) return res.status(404).json({ msg: "The request could not be registered" });
+
+          //      return res.status(200).json({ message: "sent correctly" });
      } catch (error) {
+          console.log(error)
           return res.status(400).json({ msg: error.message });
      };
+     return res.status(200).json({ message: "sent correctly" });
 
-}*/
+}
 
 
 //An email is sent to the user with the request number
-async function sendEmail(req, res) {
+async function sendEmail(req) {
      const pathToAttachment = `src/Images/logo.png`;
      const attachment = fs.readFileSync(pathToAttachment).toString("base64");
      const attachment2 = req.file.split(",")[1];
@@ -116,11 +118,10 @@ async function sendEmail(req, res) {
           ]
           
      }).catch((error) => {
-          console.log("Error", error)
-          return res.status(404).json({ message: error });
+          return Error(error)
      });
 
-     return res.status(200).json({ message: "sent correctly" });
+     
 }
 
 
