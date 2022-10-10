@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { createPDF } from "../Components/CreatePDF";
 import Header from "../Components/Header";
+import {Buffer} from 'buffer';
+
 import "./../CSS/Form.css";
 import "./../CSS/FormPhase2.css";
 import "./../CSS/Container.css";

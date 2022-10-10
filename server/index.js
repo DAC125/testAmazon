@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 //const bodyParser = require('body-parser');
 
-app.use(express.json());
+// app.use(express.json());
 const  {mongoose} = require('./database');
 
 
@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(express.json({limit: '10000mb'}));
+app.use(express.json({limit: '200mb'}));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:3001'}));

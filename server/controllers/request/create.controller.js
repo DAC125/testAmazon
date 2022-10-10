@@ -33,6 +33,8 @@ async function getYear() {
 
 //Insert the request in mongodb with all the information of the request
 cRequestCtrl.insertRequest = async (req, res) => {
+     // console.log(req)
+     // const aa = decode = Buffer.from(req.data, 'base64').toString('utf-8')
      let bdConsecutive = await Sequence.find();
      let consecutive = 0;
      if (Object.keys(bdConsecutive).length !== 0) {
