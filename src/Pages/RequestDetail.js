@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Title from "../Components/Title";
-import "./../CSS/RequestDetail.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import FormGroup from "@mui/material/FormGroup";
@@ -9,6 +7,8 @@ import Checkbox from "@mui/material/Checkbox";
 import InputFile from "../Components/InputFile";
 import axios from "axios";
 import Header from "../Components/Header";
+import Title from "../Components/Title";
+import "./../CSS/RequestDetail.css";
 
 export default function RequestDetail() {
   const location = useLocation();
@@ -75,11 +75,11 @@ export default function RequestDetail() {
         })
         .then((res) => {
           console.log(res);
+        }).catch((error) => {
+          console.log(error)
         });
     } else {
-      console.log(
-        "No se puede enviar, alguno de los datos no ha sido aprobado"
-      );
+      alert("No se puede enviar, alguno de los datos no ha sido aprobado");
     }
   };
 
@@ -92,7 +92,20 @@ export default function RequestDetail() {
         newPhase,
       })
       .then((res) => {
-        console.log(res);
+        alert("Se actualizó correctamente la solicitud");
+        axios
+        .post(`http://localhost:3000/api/request/notAllowRequest`, {
+          data,
+        })
+        .then((res2) => {
+          console.log(res2);
+          alert("Se envío el correo correctamente");
+        }).catch((error) => {
+          console.log(error);
+          alert("No se pudo enviar el correo correctamente al usuario");
+        });
+      }).catch((error) => {
+        alert("No se pudo actualizar la solicitud correctamente");
       });
   };
   const handleChangeAcceptData = (event) => {

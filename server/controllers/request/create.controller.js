@@ -57,7 +57,7 @@ cRequestCtrl.insertRequest = async (req, res) => {
                let seq = data.seq;
                let file = req.body.data.file4;
                await sendEmail({seq, email, file});
-               return res.status(200).json({ message: "Request Created!" });
+               return res.status(200).json({ message: seq });
           } else {
                return res.status(404).json({ msg: "The request could not be registered" });
           }
@@ -65,6 +65,19 @@ cRequestCtrl.insertRequest = async (req, res) => {
           return res.status(400).json({ msg: error.message });
      }
 };
+
+
+/*cRequestCtrl.sendEmailRequest = async (req, res) => {
+     try {
+          let email = req.body.data.email;
+          let seq = req.params.seq;
+          let file = req.body.data.file4;
+          await sendEmail({seq, email, file});
+     } catch (error) {
+          return res.status(400).json({ msg: error.message });
+     };
+
+}*/
 
 
 //An email is sent to the user with the request number
@@ -101,19 +114,22 @@ async function sendEmail(req, res) {
                     disposition: "inline"
                }
           ]
+          
      }).catch((error) => {
           console.log("Error", error)
           return res.status(404).json({ message: error });
      });
+
+     return res.status(200).json({ message: "sent correctly" });
 }
 
 
 cRequestCtrl.notAllowRequest = async (req, res) => {    
-     const pathToAttachment = `logo.png`;
+     const pathToAttachment = `src/Images/logo.png`;
      const attachment = fs.readFileSync(pathToAttachment).toString("base64");
      const subject = 'Plataforma de Servicios Municipalidad de Sarchí';
      const footerEmail = '<br><div><p>Gracias</p><p>Saludos</p> <p><img src="cid:myimagecid"/><p> </div>';
-     const htmlString = '<div> <p>Estimado(a) solicitante,<p> <br> </br>Su solicitud número ' + req.body.data.seq + ' No ha sido aceptada ' + req.body.data.reason +  '</div> <br>' + footerEmail;
+     const htmlString = '<div> <p>Estimado(a) solicitante,<p> <br> </br>Su solicitud número ' + req.body.data.seq + ' No ha sido aceptada ' +  '</div> <br>' + footerEmail;
 
      const htmlTemplate = htmlString;
 
@@ -137,6 +153,7 @@ cRequestCtrl.notAllowRequest = async (req, res) => {
           return res.status(404).json({ message: error.response.body });
      });
 
+     return res.status(200).json({ message: "Sent correctly" });
 }
 
 

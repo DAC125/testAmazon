@@ -21,17 +21,7 @@ const Form = () => {
   const [showInput, setShowInput] = useState(false);
   const [deleteNumber2, setDeleteNumber2] = useState(false);
 
-  const [dataUser, setDataUser] = useState({
-    name: "",
-    idNumber: "",
-    email: "",
-    phoneNumber1: "",
-    phoneNumber2: "",
-    address: "",
-  });
-
-  //Handler the Radio Button Click
-  function handleClick(event) {
+  function handleClick(event) {   //Handler the Radio Button Click
     if (event.target.value === accept) {
       setAccept("");
     } else {

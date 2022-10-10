@@ -1,20 +1,10 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-} from "@mui/material";
+import {Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel} from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import { visuallyHidden } from "@mui/utils";
 import Link from "@mui/material/Link";
-import axios from "axios";
+import { visuallyHidden } from "@mui/utils";
 import { useNavigate } from "react-router-dom";
 
 const headCells = [
@@ -70,7 +60,7 @@ function stableSort(array, comparator) {
 }
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } = props;
+  const { order, orderBy, onRequestSort} = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -106,7 +96,6 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
@@ -116,7 +105,6 @@ EnhancedTableHead.propTypes = {
 export default function MainTable(props) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("seq");
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState(props.data || [{
@@ -140,24 +128,26 @@ export default function MainTable(props) {
     setOrderBy(property);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, rowInfo) => {
+    const selectedIndex = props.selected.findIndex(object => {
+      return object.seq === rowInfo.seq;
+    });
+
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(props.selected, rowInfo);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
+      newSelected = newSelected.concat(props.selected.slice(1));
+    } else if (selectedIndex === props.selected.length - 1) {
+      newSelected = newSelected.concat(props.selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
+        props.selected.slice(0, selectedIndex),
+        props.selected.slice(selectedIndex + 1)
       );
     }
-
-    setSelected(newSelected);
+    props.setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -169,7 +159,12 @@ export default function MainTable(props) {
     setPage(0);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (name) => {
+    const indexS = props.selected.findIndex(object => {
+      return object.seq === name;
+    });
+    return indexS !== -1;
+  };
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -185,7 +180,6 @@ export default function MainTable(props) {
       <TableContainer>
         <Table sx={{ minWidth: 750 }}>
           <EnhancedTableHead
-            numSelected={selected.length}
             order={order}
             orderBy={orderBy}
             onRequestSort={handleRequestSort}
@@ -200,7 +194,7 @@ export default function MainTable(props) {
                 return (
                   <TableRow
                     hover
-                    onClick={(event) => handleClick(event, row.seq)}
+                    onClick={(event) => handleClick(event, row)}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}

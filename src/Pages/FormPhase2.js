@@ -55,32 +55,40 @@ const FormPhase2 = () => {
         address: location.state.data.address,
         digitalSignature: accept ? "yes" : "no",
         declaration: file1, 
-        //certificate : file2,
-        //paymentProof : file3,
+        certificate : file2,
+        paymentProof : file3,
         file4: file4,
         acceptData : false,
         acceptFile1 : false,
         acceptFile2 : false,
         acceptFile3 : false
       };
-      axios.post(
-        `http://localhost:3000/api/request/`, 
-        { data }).then((res) => {
+      axios.post(`http://localhost:3000/api/request/`, { data }).then((res) => {
         console.log(res);
+        navigate("/SuccessRegister");
+        /*const dataFile = {
+          email: location.state.data.email,
+          file4: file4,
+        };
+        axios.post(`http://localhost:3000/api/request/sendEmailRequest/${res.msg}`, { dataFile }).then((res) => {
+          console.log(res);
+          
+        }).catch((error) => {
+          console.log(error)
+        });*/
+      }).catch((error) => {
+        console.log(error);
+        navigate("/FailedRegister");
       });
 
       /*axios({
-        method: 'post',
         url: `http://localhost:3000/api/request/`,
-        data: JSON.stringify(data),
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        maxContentLength: Infinity,
-        maxBodyLength: Infinity
-      }).catch(err => {
-        throw err;
-     })*/
+        method: "POST", 
+        data: data,
+        maxContentLength: "infinity",
+        maxBodyLength: "infinity",
+      });*/
 
-      navigate("/SuccessRegister");
     }
   };
 
