@@ -13,6 +13,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import DownloadMultipleFiles from "../Components/DownloadMultipleFiles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -169,6 +170,9 @@ export default function Main() {
 
   const handleDownload = () => {
     console.log("Informacion para descargar", selected);
+    DownloadMultipleFiles({requests: selected})
+
+
   }
 
   return (
