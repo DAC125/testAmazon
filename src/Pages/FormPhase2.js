@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CreatePDF from "../Components/CreatePDF";
 import Header from "../Components/Header";
+import dayjs from "dayjs";
 
 import "./../CSS/Form.css";
 import "./../CSS/FormPhase2.css";
@@ -53,6 +54,7 @@ const FormPhase2 = () => {
         phoneNumber2: location.state.delete === true ? "" : location.state.data.phoneNumber2 || "",
         address: location.state.data.address,
         digitalSignature: accept ? "yes" : "no",
+        creationDate: dayjs().format('YYYY-MM-DD'),
         declaration: file1, 
         certificate : file2,
         paymentProof : file3,
@@ -62,11 +64,9 @@ const FormPhase2 = () => {
         acceptFile3 : false
       };
       axios.post(`http://localhost:3000/api/request/`, { data }).then( async (res) => {
-        console.log(res.data.sequence);
         navigate("/SuccessRegister");
-        data={...data, seq: res.data.seq}
+        data={...data, seq: res.data.sequence};
         const docBase64 = await CreatePDF({doc: "voucher", data:{data}})
-        // console.log(data)
         const dataFile = {
           email: location.state.data.email,
           file4: docBase64,
@@ -76,7 +76,7 @@ const FormPhase2 = () => {
           console.log(res);
           
         }).catch((error) => {
-          console.log(error)
+          console.log(error);
           navigate("/FailedRegister");
         });
 
@@ -84,15 +84,6 @@ const FormPhase2 = () => {
         console.log(error);
         navigate("/FailedRegister");
       });
-
-      /*axios({
-        url: `http://localhost:3000/api/request/`,
-        method: "POST", 
-        data: data,
-        maxContentLength: "infinity",
-        maxBodyLength: "infinity",
-      });*/
-
     }
   };
 

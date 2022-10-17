@@ -93,10 +93,10 @@
     }
 
     .btn{
-        width: 150px;
+        width: 300px;
         font-size: 24px;
         padding-left: 0;
         padding-right: 0;
-
+        margin-left: 10%;
     }
 }

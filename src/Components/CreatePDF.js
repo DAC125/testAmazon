@@ -8,7 +8,7 @@ import {
   pdf,
 } from "@react-pdf/renderer";
 import React from "react";
-import logo from "../Images/logo.png";
+import logo from "../Images/logo2.jpg";
 
 const getBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -36,24 +36,37 @@ export default async (props) => {
       padding: "50px",
     },
     image: {
-      width: "200px",
-      height: "200px",
+      width: "150px",
+      height: "185px",
       alignSelf: "center",
     },
     title: {
       textAlign: "center",
       fontSize: "15px",
     },
+    title1: {
+      textAlign: "center",
+      fontSize: "18px",
+      marginBottom: "5px",
+      fontWeight: 400,
+      letterSpacing: "2px",
+    },
+    title2: {
+      textAlign: "center",
+      fontSize: "26px",
+      fontWeight: 700,
+      marginBottom: "55px"
+    },
     body: {
-      marginTop: "100px",
-      fontSize: "10px",
+      marginTop: "50px",
+      fontSize: "15px",
     },
     text: {
       marginBottom: "20px",
     },
     greetingsText: {
       marginLeft: "10px",
-      fontSize: "13px",
+      fontSize: "15px",
       marginTop: "40px",
       marginBottom: "10px",
     },
@@ -67,13 +80,19 @@ export default async (props) => {
       textAlign: "center",
     },
     contact: {
-      marginTop: "100px",
+      marginTop: "180px",
       textAlign: "center",
     },
     contactTitle: {
-      fontWeight: "800",
+      fontSize: "14px",
+      fontWeight: 700,
+      marginBottom: "12px"
     },
-    section: { textAlign: "center", margin: 30 },
+    contactText: {
+      fontSize: "12px",
+      marginBottom: "10px"
+    },
+    section: { textAlign: "center", margin: 30 }
   });
 
   // select the rigth document
@@ -89,20 +108,20 @@ export default async (props) => {
             </View>
             <View style={styles.title}>
               <Text>
-                Declaración jurada para la solicitud de exoneracion de bienes
+                Declaración jurada para la solicitud de exoneración de bienes
                 inmuebles en la Municipalidad de Sarchí
               </Text>
             </View>
             <View style={styles.body}>
               <Text style={styles.text}>
-                Yo {props.data.name}, con domicilio en, "CITY" distrito
+                Yo {props.data.data.name}, con domicilio en, "CITY" distrito
                 "DISTRIT" cantón "CANTON", provincia "STATE", con documento de
                 identidad No.
-                {props.data.idNumber}
+                {props.data.data.idNumber}
               </Text>
               <Text>
-                Solicito, a travé de la pressente decclaración jurada, la
-                exoneracion de bienes inmuebles, declarando bajo fe de juramento
+                Solicito, a travé de la presente declaración jurada, la
+                exoneración de bienes inmuebles, declarando bajo fe de juramento
                 que cumplo los siguentes requisitos:
               </Text>
               <View style={styles.textDots}>
@@ -113,7 +132,7 @@ export default async (props) => {
                 </Text>
               </View>
               <Text>
-                Firmo en {props.data.address}, a las {hours}:{mins} horas del{" "}
+                Firmo en {props.data.data.address}, a las {hours}:{mins} horas del{" "}
                 {day} del mes {month} del {year}
               </Text>
 
@@ -133,9 +152,15 @@ export default async (props) => {
           <Page size="A4" style={styles.page}>
             <View style={styles.image}>
               <Image src={logo} />
+              <Text style={styles.title1}>
+                Municipalidad
+              </Text>
+              <Text style={styles.title2}>
+                de Sarchí
+              </Text>
             </View>
             <View style={styles.title}>
-              <Text>Comprobantte de trámite de exoneración de bien único</Text>
+              <Text>Comprobante de trámite de exoneración de bien único</Text>
             </View>
 
             <View style={styles.body}>
@@ -143,20 +168,20 @@ export default async (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha generado el comprobante No {props.data.seq} a nombre de{" "}
-                {props.data.name}, cédula de identidad {props.data.idNumber}, y
-                dirección física {props.data.address} sobre la solicitid de
+                Se ha generado el comprobante No {props.data.data.seq} a nombre de{" "}
+                {props.data.data.name}, cédula de identidad {props.data.data.idNumber}, y
+                dirección física {props.data.data.address}, sobre la solicitud de
                 trámite de exoneración de bien único de la Municipalidad de
-                Sarchí{" "}
+                Sarchí.{" "}
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
-                  Para más información sobre el tramite contactar:
+                  Para más información sobre el trámite contactar:
                 </Text>
-                <Text>melanie.marin@munisarchi.go.cr</Text>
-                <Text>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
-                <Text>2454 4001, ext. 111</Text>
-                <Text>2454-1664</Text>
+                <Text style={styles.contactText}>melanie.marin@munisarchi.go.cr</Text>
+                <Text style={styles.contactText}>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text style={styles.contactText}>2454 4001, ext. 111</Text>
+                <Text style={styles.contactText}>2454-1664</Text>
               </View>
             </View>
           </Page>
@@ -169,26 +194,32 @@ export default async (props) => {
           <Page size="A4" style={styles.page}>
             <View style={styles.image}>
               <Image src={logo} />
+                            <Text style={styles.title1}>
+                Municipalidad
+              </Text>
+              <Text style={styles.title2}>
+                de Sarchí
+              </Text>
             </View>
             <View style={styles.title}>
-              <Text>Comprobantte de trámite de exoneración de bien único</Text>
+              <Text>Comprobante de trámite de exoneración de bien único</Text>
             </View>
     
             <View style={styles.body}>
               <Text style={styles.greetingsText}>Estimada persona usuaria, </Text>
               <Text style={styles.text}>
-                Se ha rechazado su solicitud de trámite No {props.data.seq} a nombre
-                de {props.data.name}, cédula de identidad {props.data.idNumber} y
-                direccion física {props.data.address}. Favor contactar al departamento de Bienes Inmuebles en atención a su solicitud
+                Se ha rechazado su solicitud de trámite No {props.data.data.seq} a nombre
+                de {props.data.data.name}, cédula de identidad {props.data.data.idNumber} y
+                direccion física {props.data.data.address}. Favor contactar al departamento de Bienes Inmuebles en atención a su solicitud
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
-                  Para más información sobre el tramite contactar:
+                  Para más información sobre el trámite contactar:
                 </Text>
-                <Text>melanie.marin@munisarchi.go.cr</Text>
-                <Text>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
-                <Text>2454 4001, ext. 111</Text>
-                <Text>2454-1664</Text>
+                <Text style={styles.contactText}>melanie.marin@munisarchi.go.cr</Text>
+                <Text style={styles.contactText}>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text style={styles.contactText}>2454 4001, ext. 111</Text>
+                <Text style={styles.contactText}>2454-1664</Text>
               </View>
             </View>
           </Page>
@@ -201,21 +232,27 @@ export default async (props) => {
           <Page size="A4" style={styles.page}>
             <View style={styles.image}>
               <Image src={logo} />
+              <Text style={styles.title1}>
+                Municipalidad
+              </Text>
+              <Text style={styles.title2}>
+                de Sarchí
+              </Text>
             </View>
             <View style={styles.title}>
-              <Text>Comprobantte de trámite de exoneración de bien único</Text>
+              <Text>Comprobante de trámite de exoneración de bien único</Text>
             </View>
     
             <View style={styles.body}>
               <Text style={styles.greetingsText}>Estimada persona usuaria, </Text>
               <Text style={styles.text}>
-                Se ha aceptado su solicitud de trámite No {props.data.seq} a nombre
-                de {props.data.name}, cédula de identidad {props.data.idNumber} y
-                direccion física {props.data.address}. 
+                Se ha aceptado su solicitud de trámite No {props.data.dataS.seq} a nombre
+                de {props.data.dataS.name}, cédula de identidad {props.data.dataS.idNumber} y
+                direccion física {props.data.dataS.address}. 
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
-                  Para más información sobre el tramite contactar:
+                  Para más información sobre el trámite contactar:
                 </Text>
                 <Text>melanie.marin@munisarchi.go.cr</Text>
                 <Text>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>

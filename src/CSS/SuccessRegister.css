@@ -5,15 +5,6 @@
 
 }
 
-@media screen and (max-width: 1080px) {
-    .wrapper-content {
-        padding-top: 222px;
-        padding-left: 50px;
-        padding-right: 50px;
-    
-    }
-}
-
 .content-su {
     padding-top: 200px;
     padding-left: 20px;
@@ -60,4 +51,23 @@
 .icons-footer {
     margin-left: 325px;
     margin-right: 10px;
+}
+
+@media screen and (max-width: 630px) {
+    .btn-su{ 
+        margin-left: 13%;
+    }
+
+    .icons-footer {
+        margin-left: 0;
+    }
+
+}
+
+@media screen and (max-width: 1080px) {
+    .wrapper-content {
+        padding-top: 222px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 }

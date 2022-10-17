@@ -13,7 +13,7 @@ const Register = () => {
   let navigate = useNavigate();
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/Exoneration");
   };
 
   return (

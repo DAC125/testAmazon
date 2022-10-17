@@ -12,6 +12,7 @@ router.get("/dateRequest/:iDate/:eDate", rRequestCtrl.getDateRequest);
 router.get("/specificRequest/:seq", rRequestCtrl.getRequest);
 
 router.post("/notAllowRequest", cRequestCtrl.notAllowRequest);
+router.post("/allowRequest", cRequestCtrl.allowRequest);
 router.post("/updateRequest/:seq", uRequestCtrl.updateRequest);
 router.post("/updatePhase/:seq", uRequestCtrl.updatePhase);
 router.post("/sendEmailRequest",cRequestCtrl.sendEmailRequest);

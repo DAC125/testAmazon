@@ -128,7 +128,7 @@ export default function Main() {
   };
 
   const convertToDate = (day) => {
-    return `${dayjs(day).get("year")}-${dayjs(day).get("month") + 1}-${dayjs(day).format("DD")}`;
+    return `${dayjs(day).get("year")}-${dayjs(day).format("MM")}-${dayjs(day).format("DD")}`;
   };
 
   const filterByDate = () => {

@@ -8,6 +8,7 @@ import InputFile from "../Components/InputFile";
 import axios from "axios";
 import Header from "../Components/Header";
 import Title from "../Components/Title";
+import CreatePDF from "../Components/CreatePDF";
 import "./../CSS/RequestDetail.css";
 
 export default function RequestDetail() {
@@ -22,6 +23,7 @@ export default function RequestDetail() {
     phoneNumber1: location.state.phoneNumber1 || "",
     phoneNumber2: location.state.phoneNumber2 || "",
     address: location.state.address || "",
+    digitalSignature: location.state.digitalSignature || "no"
   });
 
   const [file1, setFile1] = useState(location.state.declaration || null);
@@ -53,7 +55,8 @@ export default function RequestDetail() {
   const handleRegistration = (dataV) => {
     if (acceptData && acceptFile1 && acceptFile2 && acceptFile3) {
       const dataS = {
-        status: "Pendiente",
+        seq: data.seq,
+        status: "Aprobada",
         name: dataV.name,
         idNumber: dataV.idNumber,
         email: dataV.email,
@@ -73,10 +76,30 @@ export default function RequestDetail() {
         .post(`http://localhost:3000/api/request/updateRequest/${data.seq}`, {
           dataS,
         })
-        .then((res) => {
+        .then(async (res) => {
           console.log(res);
-        }).catch((error) => {
-          console.log(error)
+          alert("Se actualizó correctamente la solicitud");
+          const docBase64 = await CreatePDF({
+            doc: "succesRequest",
+            data: { dataS },
+          });
+          axios
+            .post(`http://localhost:3000/api/request/allowRequest`, {
+              data: data,
+              file4: docBase64,
+            })
+            .then((res2) => {
+              console.log(res2);
+              alert("Se envío el correo correctamente");
+            })
+            .catch((error) => {
+              console.log(error);
+              alert("No se pudo enviar el correo correctamente al usuario");
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("No se pudo actualizar correctamente");
         });
     } else {
       alert("No se puede enviar, alguno de los datos no ha sido aprobado");
@@ -91,20 +114,28 @@ export default function RequestDetail() {
       .post(`http://localhost:3000/api/request/updatePhase/${data.seq}`, {
         newPhase,
       })
-      .then((res) => {
+      .then(async (res) => {
         alert("Se actualizó correctamente la solicitud");
-        axios
-        .post(`http://localhost:3000/api/request/notAllowRequest`, {
-          data,
-        })
-        .then((res2) => {
-          console.log(res2);
-          alert("Se envío el correo correctamente");
-        }).catch((error) => {
-          console.log(error);
-          alert("No se pudo enviar el correo correctamente al usuario");
+        const docBase64 = await CreatePDF({
+          doc: "failedRequest",
+          data: { data },
         });
-      }).catch((error) => {
+        axios
+          .post(`http://localhost:3000/api/request/notAllowRequest`, {
+            data: data,
+            file4: docBase64,
+          })
+          .then((res2) => {
+            console.log(res2);
+            alert("Se envío el correo correctamente");
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("No se pudo enviar el correo correctamente al usuario");
+          });
+      })
+      .catch((error) => {
+        console.log(error);
         alert("No se pudo actualizar la solicitud correctamente");
       });
   };
@@ -163,197 +194,187 @@ export default function RequestDetail() {
     },
   };
 
-  useEffect(() => {
-    if (acceptData && acceptFile1 && acceptFile2 && acceptFile3) {
-      console.log(
-        "Desea actualizar los datos y el estado de solicitud por aceptado?"
-      );
-    }
-
-    //Yes update data, and validate files are no empty
-  }, [acceptData, acceptFile1, acceptFile2, acceptFile3]);
-
   return (
     <div>
       <Header />
       <div className="wrapper-content">
-      <Title title="Exoneración de bienes inmuebles" />
-      <div>
-        <h3 className="title-data">Datos del solicitante</h3>
-        <form onSubmit={handleSubmit(handleRegistration, handleError)}>
-          <div className="data-details">
-            <label>1. Nombre completo</label>
-            <input
-              className="input-data-detail"
-              name="name"
-              type="text"
-              value={data.name}
-              {...register("name", registerOptions.name)}
-            />
-            <small className="text-danger">
-              {errors?.name && errors.name.message}
-            </small>
-          </div>
-          <div className="data-details">
-            <label>2. Número de cédula</label>
-            <input
-              className="input-data-detail"
-              name="idNumber"
-              type="text"
-              value={data.idNumber}
-              {...register("idNumber", registerOptions.idNumber)}
-            />
-            <small className="text-danger">
-              {errors?.idNumber && errors.idNumber.message}
-            </small>
-          </div>
-
-          <div className="data-details">
-            <label>3. Dirección física para notificaciones</label>
-            <input
-              className="input-data-detail address-detail"
-              name="address"
-              type="text"
-              value={data.address}
-              {...register("address", registerOptions.address)}
-            />
-            <small className="text-danger">
-              {errors?.address && errors.address.message}
-            </small>
-          </div>
-          <div className="data-details">
-            <label>4. Número de teléfono</label>
-            <input
-              className="input-data-detail"
-              name="phoneNumber1"
-              type="text"
-              value={data.phoneNumber1}
-              {...register("phoneNumber1", registerOptions.phoneNumber1)}
-            />
-            <small className="text-danger">
-              {errors?.phoneNumber1 && errors.phoneNumber1.message}
-            </small>
-          </div>
-          <div className="data-details">
-            <label>5. Número de celular</label>
-            <input
-              className="input-data-detail"
-              name="phoneNumber2"
-              type="text"
-              value={data.phoneNumber2}
-              {...register("phoneNumber2", registerOptions.phoneNumber2)}
-            />
-            <small className="text-danger">
-              {errors?.phoneNumber2 && errors.phoneNumber2.message}
-            </small>
-          </div>
-          <div className="data-details">
-            <label>6.Correo electrónico para notificaciones</label>
-            <input
-              className="input-data-detail"
-              type="email"
-              name="email"
-              value={data.email}
-              {...register("email", registerOptions.email)}
-            />
-            <small className="text-danger">
-              {errors?.email && errors.email.message}
-            </small>
-          </div>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={acceptData}
-                  onChange={handleChangeAcceptData}
-                />
-              }
-              label="Datos del solicitante"
-            />
-          </FormGroup>
-          <div>
-            <h3 className="title-data2">Archivos Adjuntos</h3>
-            <div className="files">
-              <div className="file-details">
-                <InputFile
-                  title="1. Declaracion Jurada"
-                  uploadFile={setFile1}
-                  file={file1}
-                  isDownloadable={true}
-                />
-              </div>
-              <div className="file-checkbox">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={acceptFile1}
-                        onChange={handleChangeAcceptFile1}
-                      />
-                    }
-                    label="Declaracion Jurada"
-                  />
-                </FormGroup>
-              </div>
+        <Title title="Exoneración de bienes inmuebles" />
+        <div>
+          <h3 className="title-data">Datos del solicitante</h3>
+          <form onSubmit={handleSubmit(handleRegistration, handleError)}>
+            <div className="data-details">
+              <label>1. Nombre completo</label>
+              <input
+                className="input-data-detail"
+                name="name"
+                type="text"
+                value={data.name}
+                {...register("name", registerOptions.name)}
+              />
+              <small className="text-danger">
+                {errors?.name && errors.name.message}
+              </small>
+            </div>
+            <div className="data-details">
+              <label>2. Número de cédula</label>
+              <input
+                className="input-data-detail"
+                name="idNumber"
+                type="text"
+                value={data.idNumber}
+                {...register("idNumber", registerOptions.idNumber)}
+              />
+              <small className="text-danger">
+                {errors?.idNumber && errors.idNumber.message}
+              </small>
             </div>
 
-            <div className="files">
-              <div className="file-details">
-                <InputFile
-                  title="2. Certificación del Registro Público Nacional donde indica que posee un único bien inmueble a nivel nacional"
-                  uploadFile={setFile2}
-                  file={file2}
-                  isDownloadable={true}
-                />
-              </div>
-              <div className="file-checkbox">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={acceptFile2}
-                        onChange={handleChangeAcceptFile2}
-                      />
-                    }
-                    label="Certificación registro nacional"
-                  />
-                </FormGroup>
-              </div>
+            <div className="data-details">
+              <label>3. Dirección física para notificaciones</label>
+              <input
+                className="input-data-detail address-detail"
+                name="address"
+                type="text"
+                value={data.address}
+                {...register("address", registerOptions.address)}
+              />
+              <small className="text-danger">
+                {errors?.address && errors.address.message}
+              </small>
             </div>
+            <div className="data-details">
+              <label>4. Número de teléfono</label>
+              <input
+                className="input-data-detail"
+                name="phoneNumber1"
+                type="text"
+                value={data.phoneNumber1}
+                {...register("phoneNumber1", registerOptions.phoneNumber1)}
+              />
+              <small className="text-danger">
+                {errors?.phoneNumber1 && errors.phoneNumber1.message}
+              </small>
+            </div>
+            <div className="data-details">
+              <label>5. Número de celular</label>
+              <input
+                className="input-data-detail"
+                name="phoneNumber2"
+                type="text"
+                value={data.phoneNumber2}
+                {...register("phoneNumber2", registerOptions.phoneNumber2)}
+              />
+              <small className="text-danger">
+                {errors?.phoneNumber2 && errors.phoneNumber2.message}
+              </small>
+            </div>
+            <div className="data-details">
+              <label>6.Correo electrónico para notificaciones</label>
+              <input
+                className="input-data-detail"
+                type="email"
+                name="email"
+                value={data.email}
+                {...register("email", registerOptions.email)}
+              />
+              <small className="text-danger">
+                {errors?.email && errors.email.message}
+              </small>
+            </div>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={acceptData}
+                    onChange={handleChangeAcceptData}
+                  />
+                }
+                label="Datos del solicitante"
+              />
+            </FormGroup>
+            <div>
+              <h3 className="title-data2">Archivos Adjuntos - {data.digitalSignature === "yes" ? "Con firma digital" : "Sin firma digital"}</h3>
+              <div className="files">
+                <div className="file-details">
+                  <InputFile
+                    title="1. Declaracion Jurada"
+                    uploadFile={setFile1}
+                    file={file1}
+                    isDownloadable={true}
+                  />
+                </div>
+                <div className="file-checkbox">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={acceptFile1}
+                          onChange={handleChangeAcceptFile1}
+                        />
+                      }
+                      label="Declaracion Jurada"
+                    />
+                  </FormGroup>
+                </div>
+              </div>
 
-            <div className="files">
-              <div className="file-details">
-                <InputFile
-                  title="3. Comprobante de pago de la certificación del Registro Público Nacional"
-                  uploadFile={setFile3}
-                  file={file3}
-                  isDownloadable={true}
-                />
-              </div>
-              <div className="file-checkbox">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={acceptFile3}
-                        onChange={handleChangeAcceptFile3}
-                      />
-                    }
-                    label="Comprobante de pago"
+              <div className="files">
+                <div className="file-details">
+                  <InputFile
+                    title="2. Certificación del Registro Público Nacional donde indica que posee un único bien inmueble a nivel nacional"
+                    uploadFile={setFile2}
+                    file={file2}
+                    isDownloadable={true}
                   />
-                </FormGroup>
+                </div>
+                <div className="file-checkbox">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={acceptFile2}
+                          onChange={handleChangeAcceptFile2}
+                        />
+                      }
+                      label="Certificación registro nacional"
+                    />
+                  </FormGroup>
+                </div>
+              </div>
+
+              <div className="files">
+                <div className="file-details">
+                  <InputFile
+                    title="3. Comprobante de pago de la certificación del Registro Público Nacional"
+                    uploadFile={setFile3}
+                    file={file3}
+                    isDownloadable={true}
+                  />
+                </div>
+                <div className="file-checkbox">
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={acceptFile3}
+                          onChange={handleChangeAcceptFile3}
+                        />
+                      }
+                      label="Comprobante de pago"
+                    />
+                  </FormGroup>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="btn-container-detail">
-            <button className="btn-detail1">Enviar Comprobante</button>
-          </div>
-        </form>
-        <button onClick={handleReject} className="btn-detail2">
-          Rechazar Solicitud
-        </button>
+            <div className="btn-container-detail">
+              <button className="btn-detail1">Enviar Comprobante</button>
+            </div>
+          </form>
+          <button onClick={handleReject} className="btn-detail2">
+            Rechazar Solicitud
+          </button>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

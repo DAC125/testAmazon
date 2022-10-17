@@ -2,9 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
-//const bodyParser = require('body-parser');
 
-// app.use(express.json());
 const  {mongoose} = require('./database');
 
 app.use(function (req, res, next) {

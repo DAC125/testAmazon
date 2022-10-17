@@ -14,7 +14,7 @@ const Container = () => {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Form />} />
+          <Route path="Exoneration" element={<Form />} />
           <Route path="Form2" element={<FormPhase2 />} />
           <Route path="SuccessRegister" element={<SuccessRegister />} />
           <Route path="FailedRegister" element={<FailedRegister />} />

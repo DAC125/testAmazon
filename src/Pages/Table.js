@@ -250,6 +250,7 @@ export default function MainTable(props) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage={"Filas por página"}
       />
     </div>
   );
