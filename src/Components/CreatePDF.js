@@ -35,9 +35,14 @@ export default async (props) => {
       marginTop: "25px",
       padding: "50px",
     },
+    imgDiv: {
+      alignSelf: "center",
+      width: "100%",
+    },
     image: {
-      width: "150px",
-      height: "185px",
+      display: "block",
+      width: "20%",
+      height: "auto",
       alignSelf: "center",
     },
     title: {
@@ -55,11 +60,14 @@ export default async (props) => {
       textAlign: "center",
       fontSize: "26px",
       fontWeight: 700,
-      marginBottom: "55px"
+      marginBottom: "55px",
+    },
+    negrita: {
+      fontSize: "13px",
     },
     body: {
       marginTop: "50px",
-      fontSize: "15px",
+      fontSize: "12px",
     },
     text: {
       marginBottom: "20px",
@@ -86,13 +94,13 @@ export default async (props) => {
     contactTitle: {
       fontSize: "14px",
       fontWeight: 700,
-      marginBottom: "12px"
+      marginBottom: "12px",
     },
     contactText: {
       fontSize: "12px",
-      marginBottom: "10px"
+      marginBottom: "10px",
     },
-    section: { textAlign: "center", margin: 30 }
+    section: { textAlign: "center", margin: 30 },
   });
 
   // select the rigth document
@@ -103,8 +111,8 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.image}>
-              <Image src={logo} />
+            <View style={styles.imgDiv}>
+              <Image src={logo} style={styles.image} />
             </View>
             <View style={styles.title}>
               <Text>
@@ -114,9 +122,9 @@ export default async (props) => {
             </View>
             <View style={styles.body}>
               <Text style={styles.text}>
-                Yo {props.data.data.name}, con domicilio en, "CITY" distrito
-                "DISTRIT" cantón "CANTON", provincia "STATE", con documento de
-                identidad No.
+                Yo <Text style={styles.negrita}>{props.data.data.name}</Text>,
+                con domicilio en, "CITY" distrito "DISTRIT" cantón "CANTON",
+                provincia "STATE", con documento de identidad No.
                 {props.data.data.idNumber}
               </Text>
               <Text>
@@ -127,13 +135,15 @@ export default async (props) => {
               <View style={styles.textDots}>
                 <Text> • Estar al dia con los pagos municipales</Text>
                 <Text> • Contar con un único bien a nivel nacional</Text>
-                <Text> • Certificación del Registro Publico Nacional donde indica que
+                <Text>
+                  {" "}
+                  • Certificación del Registro Publico Nacional donde indica que
                   posee un único bien inmueble a nivel nacional
                 </Text>
               </View>
               <Text>
-                Firmo en {props.data.data.address}, a las {hours}:{mins} horas del{" "}
-                {day} del mes {month} del {year}
+                Firmo en {props.data.data.address}, a las {hours}:{mins} horas
+                del {day} del mes {month} del {year}
               </Text>
 
               <Text style={styles.textSign}>
@@ -150,14 +160,10 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.image}>
-              <Image src={logo} />
-              <Text style={styles.title1}>
-                Municipalidad
-              </Text>
-              <Text style={styles.title2}>
-                de Sarchí
-              </Text>
+            <View style={styles.imgDiv}>
+              <Image src={logo} style={styles.image} />
+              <Text style={styles.title1}>Municipalidad</Text>
+              <Text style={styles.title2}>de Sarchí</Text>
             </View>
             <View style={styles.title}>
               <Text>Comprobante de trámite de exoneración de bien único</Text>
@@ -168,18 +174,27 @@ export default async (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha generado el comprobante No {props.data.data.seq} a nombre de{" "}
-                {props.data.data.name}, cédula de identidad {props.data.data.idNumber}, y
-                dirección física {props.data.data.address}, sobre la solicitud de
-                trámite de exoneración de bien único de la Municipalidad de
-                Sarchí.{" "}
+                Se ha generado el comprobante No{" "}
+                <Text style={styles.negrita}>{props.data.data.seq}</Text> a
+                nombre de{" "}
+                <Text style={styles.negrita}>{props.data.data.name}</Text>,
+                cédula de identidad{" "}
+                <Text style={styles.negrita}>{props.data.data.idNumber}</Text>,
+                y dirección física{" "}
+                <Text style={styles.negrita}>{props.data.data.address}</Text>,
+                sobre la solicitud de trámite de exoneración de bien único de la
+                Municipalidad de Sarchí.{" "}
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
                   Para más información sobre el trámite contactar:
                 </Text>
-                <Text style={styles.contactText}>melanie.marin@munisarchi.go.cr</Text>
-                <Text style={styles.contactText}>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text style={styles.contactText}>
+                  melanie.marin@munisarchi.go.cr
+                </Text>
+                <Text style={styles.contactText}>
+                  Lunes a viernes: 7:00a.m. - 4:00 p.m.
+                </Text>
                 <Text style={styles.contactText}>2454 4001, ext. 111</Text>
                 <Text style={styles.contactText}>2454-1664</Text>
               </View>
@@ -192,32 +207,36 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.image}>
-              <Image src={logo} />
-                            <Text style={styles.title1}>
-                Municipalidad
-              </Text>
-              <Text style={styles.title2}>
-                de Sarchí
-              </Text>
+            <View style={styles.imgDiv}>
+              <Image src={logo} style={styles.image} />
+              <Text style={styles.title1}>Municipalidad</Text>
+              <Text style={styles.title2}>de Sarchí</Text>
             </View>
             <View style={styles.title}>
               <Text>Comprobante de trámite de exoneración de bien único</Text>
             </View>
-    
+
             <View style={styles.body}>
-              <Text style={styles.greetingsText}>Estimada persona usuaria, </Text>
+              <Text style={styles.greetingsText}>
+                Estimada persona usuaria,{" "}
+              </Text>
               <Text style={styles.text}>
-                Se ha rechazado su solicitud de trámite No {props.data.data.seq} a nombre
-                de {props.data.data.name}, cédula de identidad {props.data.data.idNumber} y
-                direccion física {props.data.data.address}. Favor contactar al departamento de Bienes Inmuebles en atención a su solicitud
+                Se ha rechazado su solicitud de trámite No <Text style={styles.negrita}>{props.data.data.seq}</Text>{" "}
+                a nombre de <Text style={styles.negrita}>{props.data.data.name}</Text>, cédula de identidad{" "}
+                <Text style={styles.negrita}>{props.data.data.idNumber}</Text>. y direccion física{" "}
+                <Text style={styles.negrita}>{props.data.data.address}</Text>. Favor contactar al departamento de
+                Bienes Inmuebles en atención a su solicitud
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
                   Para más información sobre el trámite contactar:
                 </Text>
-                <Text style={styles.contactText}>melanie.marin@munisarchi.go.cr</Text>
-                <Text style={styles.contactText}>Lunes a viernes: 7:00a.m. - 4:00 p.m.</Text>
+                <Text style={styles.contactText}>
+                  melanie.marin@munisarchi.go.cr
+                </Text>
+                <Text style={styles.contactText}>
+                  Lunes a viernes: 7:00a.m. - 4:00 p.m.
+                </Text>
                 <Text style={styles.contactText}>2454 4001, ext. 111</Text>
                 <Text style={styles.contactText}>2454-1664</Text>
               </View>
@@ -230,25 +249,24 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.image}>
-              <Image src={logo} />
-              <Text style={styles.title1}>
-                Municipalidad
-              </Text>
-              <Text style={styles.title2}>
-                de Sarchí
-              </Text>
+            <View style={styles.imgDiv}>
+              <Image src={logo} style={styles.image} />
+              <Text style={styles.title1}>Municipalidad</Text>
+              <Text style={styles.title2}>de Sarchí</Text>
             </View>
             <View style={styles.title}>
               <Text>Comprobante de trámite de exoneración de bien único</Text>
             </View>
-    
+
             <View style={styles.body}>
-              <Text style={styles.greetingsText}>Estimada persona usuaria, </Text>
+              <Text style={styles.greetingsText}>
+                Estimada persona usuaria,{" "}
+              </Text>
               <Text style={styles.text}>
-                Se ha aceptado su solicitud de trámite No {props.data.dataS.seq} a nombre
-                de {props.data.dataS.name}, cédula de identidad {props.data.dataS.idNumber} y
-                direccion física {props.data.dataS.address}. 
+                Se ha aceptado su solicitud de trámite No <Text style={styles.negrita}>{props.data.dataS.seq}</Text>{" "}
+                a nombre de {props.data.dataS.name}, cédula de identidad{" "}
+                <Text style={styles.negrita}>{props.data.dataS.idNumber}</Text> y direccion física{" "}
+                <Text style={styles.negrita}>{props.data.dataS.address}</Text>.
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
@@ -269,4 +287,4 @@ export default async (props) => {
   let file = await pdf(MyDoc).toBlob();
 
   return await getBase64(file);
-}
+};

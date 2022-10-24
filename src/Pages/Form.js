@@ -13,6 +13,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 import Title from "../Components/Title";
 import { useForm } from "react-hook-form";
 import Header from "../Components/Header";
+import Test from "../Components/Test";
+import Test1 from "../Components/Test1";
+
 import "./../CSS/Form.css";
 import "./../CSS/Container.css";
 
@@ -218,6 +221,11 @@ const Form = () => {
               </div>
             </div>
           </form>
+          <div style={{display: "flex", width: "100%"}}>
+          <Test doc="voucher" data={{idNumber: "117040878", name: "Diego Acuña Cerdas", address: "Naranjo"}}/>
+          <Test1 doc="voucher" data={{idNumber: "117040878", name: "Diego Acuña Cerdas", address: "Naranjo"}}/>
+
+          </div>
         </div>
       </div>
     </div>

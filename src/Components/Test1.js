@@ -65,7 +65,7 @@ const Test = (props) => {
       marginBottom: "55px",
     },
     negrita:{ 
-      fontSize: "13px",
+      fontSize: "14px",
     },
     body: {
       marginTop: "50px",
@@ -278,9 +278,9 @@ const Test = (props) => {
 
   return (
     <div style={{width: "50%"}}>
-      <h1 style={{textAlign: "center"}}> negrita +1px</h1>
+      <h1 style={{textAlign: "center"}}> negrita +2px</h1>
       <PDFViewer style={{ width: "100%", height: "90vh" }}>{MyDoc}</PDFViewer>
-    </div>
+     </div>
   );
 };
 
