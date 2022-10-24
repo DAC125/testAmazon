@@ -64,7 +64,7 @@ const Test = (props) => {
       fontWeight: 700,
       marginBottom: "55px",
     },
-    negrita:{ 
+    bold:{ 
       fontSize: "14px",
     },
     body: {
@@ -176,9 +176,9 @@ const Test = (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha generado el comprobante No a nombre de <Text style={styles.negrita}>{props.data.name}</Text>,
-                cédula de identidad <Text style={styles.negrita}>{props.data.idNumber}</Text>, y dirección física{" "}
-                <Text style={styles.negrita}>{props.data.address}</Text> sobre la solicitud de trámite de
+                Se ha generado el comprobante No a nombre de <Text style={styles.bold}>{props.data.name}</Text>,
+                cédula de identidad <Text style={styles.bold}>{props.data.idNumber}</Text>, y dirección física{" "}
+                <Text style={styles.bold}>{props.data.address}</Text> sobre la solicitud de trámite de
                 exoneración de bien único de la Municipalidad de Sarchí.{" "}
               </Text>
               <View style={styles.contact}>
@@ -278,7 +278,7 @@ const Test = (props) => {
 
   return (
     <div style={{width: "50%"}}>
-      <h1 style={{textAlign: "center"}}> negrita +2px</h1>
+      <h1 style={{textAlign: "center"}}> small size bold +2px</h1>
       <PDFViewer style={{ width: "100%", height: "90vh" }}>{MyDoc}</PDFViewer>
      </div>
   );

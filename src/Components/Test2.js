@@ -6,21 +6,13 @@ import {
   StyleSheet,
   Image,
   pdf,
+  PDFViewer,
 } from "@react-pdf/renderer";
 import React from "react";
 import logo from "../Images/logo2.jpg";
 
-const getBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = function () {
-      resolve(reader.result);
-    };
-  });
-};
-
-export default async (props) => {
+const Test = (props) => {
+  console.log(props);
   let now = new Date();
   let day = String(now.getDate() + 1);
   let month = String(now.getMonth() + 1);
@@ -28,6 +20,16 @@ export default async (props) => {
 
   let hours = String(now.getHours());
   let mins = String(now.getMinutes());
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = function () {
+        resolve(reader.result);
+      };
+    });
+  };
 
   // document styles
   const styles = StyleSheet.create({
@@ -37,7 +39,7 @@ export default async (props) => {
     },
     imgDiv: {
       alignSelf: "center",
-      width: "100%",
+      width: "100%"
     },
     image: {
       display: "block",
@@ -62,12 +64,12 @@ export default async (props) => {
       fontWeight: 700,
       marginBottom: "55px",
     },
-    bold: {
-      fontSize: "13px",
+    bold:{ 
+      fontSize: "16px",
     },
     body: {
       marginTop: "50px",
-      fontSize: "12px",
+      fontSize: "15px",
     },
     text: {
       marginBottom: "20px",
@@ -103,7 +105,6 @@ export default async (props) => {
     section: { textAlign: "center", margin: 30 },
   });
 
-  // select the rigth document
   let MyDoc = "";
 
   switch (props.doc) {
@@ -112,7 +113,7 @@ export default async (props) => {
         <Document>
           <Page size="A4" style={styles.page}>
             <View style={styles.imgDiv}>
-              <Image src={logo} style={styles.image} />
+              <Image src={logo}  style={styles.image}/>
             </View>
             <View style={styles.title}>
               <Text>
@@ -122,9 +123,9 @@ export default async (props) => {
             </View>
             <View style={styles.body}>
               <Text style={styles.text}>
-                Yo <Text style={styles.bold}>{props.data.data.name}</Text>,
-                con domicilio en, "CITY" distrito "DISTRIT" cantón "CANTON",
-                provincia "STATE", con documento de identidad No.
+                Yo {props.data.data.name}, con domicilio en, "CITY" distrito
+                "DISTRIT" cantón "CANTON", provincia "STATE", con documento de
+                identidad No.
                 {props.data.data.idNumber}
               </Text>
               <Text>
@@ -160,13 +161,14 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.imgDiv}>
-              <Image src={logo} style={styles.image} />
+          <View style={styles.imgDiv}>
+              <Image src={logo}  style={styles.image}/>
+            
               <Text style={styles.title1}>Municipalidad</Text>
               <Text style={styles.title2}>de Sarchí</Text>
             </View>
             <View style={styles.title}>
-              <Text>Comprobante de trámite de exoneración de bien único</Text>
+              <Text> Comprobante de trámite de exoneración de bien único</Text>
             </View>
 
             <View style={styles.body}>
@@ -174,16 +176,10 @@ export default async (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha generado el comprobante No{" "}
-                <Text style={styles.bold}>{props.data.data.seq}</Text> a
-                nombre de{" "}
-                <Text style={styles.bold}>{props.data.data.name}</Text>,
-                cédula de identidad{" "}
-                <Text style={styles.bold}>{props.data.data.idNumber}</Text>,
-                y dirección física{" "}
-                <Text style={styles.bold}>{props.data.data.address}</Text>,
-                sobre la solicitud de trámite de exoneración de bien único de la
-                Municipalidad de Sarchí.{" "}
+                Se ha generado el comprobante No a nombre de <Text style={styles.bold}>{props.data.name}</Text>,
+                cédula de identidad <Text style={styles.bold}>{props.data.idNumber}</Text>, y dirección física{" "}
+                <Text style={styles.bold}>{props.data.address}</Text> sobre la solicitud de trámite de
+                exoneración de bien único de la Municipalidad de Sarchí.{" "}
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
@@ -207,10 +203,8 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.imgDiv}>
-              <Image src={logo} style={styles.image} />
-              <Text style={styles.title1}>Municipalidad</Text>
-              <Text style={styles.title2}>de Sarchí</Text>
+          <View style={styles.imgDiv}>
+              <Image src={logo}  style={styles.image}/>
             </View>
             <View style={styles.title}>
               <Text>Comprobante de trámite de exoneración de bien único</Text>
@@ -221,10 +215,10 @@ export default async (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha rechazado su solicitud de trámite No <Text style={styles.bold}>{props.data.data.seq}</Text>{" "}
-                a nombre de <Text style={styles.bold}>{props.data.data.name}</Text>, cédula de identidad{" "}
-                <Text style={styles.bold}>{props.data.data.idNumber}</Text>. y direccion física{" "}
-                <Text style={styles.bold}>{props.data.data.address}</Text>. Favor contactar al departamento de
+                Se ha rechazado su solicitud de trámite No {props.data.data.seq}{" "}
+                a nombre de {props.data.data.name}, cédula de identidad{" "}
+                {props.data.data.idNumber} y direccion física{" "}
+                {props.data.data.address}. Favor contactar al departamento de
                 Bienes Inmuebles en atención a su solicitud
               </Text>
               <View style={styles.contact}>
@@ -249,10 +243,8 @@ export default async (props) => {
       MyDoc = (
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.imgDiv}>
-              <Image src={logo} style={styles.image} />
-              <Text style={styles.title1}>Municipalidad</Text>
-              <Text style={styles.title2}>de Sarchí</Text>
+          <View style={styles.imgDiv}>
+              <Image src={logo}  style={styles.image}/>
             </View>
             <View style={styles.title}>
               <Text>Comprobante de trámite de exoneración de bien único</Text>
@@ -263,10 +255,10 @@ export default async (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha aceptado su solicitud de trámite No <Text style={styles.bold}>{props.data.dataS.seq}</Text>{" "}
-                a nombre de {props.data.dataS.name}, cédula de identidad{" "}
-                <Text style={styles.bold}>{props.data.dataS.idNumber}</Text> y direccion física{" "}
-                <Text style={styles.bold}>{props.data.dataS.address}</Text>.
+                Se ha aceptado su solicitud de trámite No {props.data.data.seq}{" "}
+                a nombre de {props.data.data.name}, cédula de identidad{" "}
+                {props.data.data.idNumber} y direccion física{" "}
+                {props.data.data.address}.
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
@@ -284,7 +276,12 @@ export default async (props) => {
       break;
   }
 
-  let file = await pdf(MyDoc).toBlob();
-
-  return await getBase64(file);
+  return (
+    <div style={{width: "50%"}}>
+      <h1 style={{textAlign: "center"}}> big size bold +2px</h1>
+      <PDFViewer style={{ width: "100%", height: "90vh" }}>{MyDoc}</PDFViewer>
+     </div>
+  );
 };
+
+export default Test;

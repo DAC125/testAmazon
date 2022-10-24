@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import Header from "../Components/Header";
 import Test from "../Components/Test";
 import Test1 from "../Components/Test1";
+import Test2 from "../Components/Test2";
+import Test3 from "../Components/Test3";
 
 import "./../CSS/Form.css";
 import "./../CSS/Container.css";
@@ -225,6 +227,10 @@ const Form = () => {
           <Test doc="voucher" data={{idNumber: "117040878", name: "Diego Acuña Cerdas", address: "Naranjo"}}/>
           <Test1 doc="voucher" data={{idNumber: "117040878", name: "Diego Acuña Cerdas", address: "Naranjo"}}/>
 
+          </div>
+          <div style={{display: "flex", width: "100%"}}>
+          <Test2 doc="voucher" data={{idNumber: "117040878", name: "Diego Acuña Cerdas", address: "Naranjo"}}/>
+          <Test3 doc="voucher" data={{idNumber: "117040878", name: "Diego Acuña Cerdas", address: "Naranjo"}}/>
           </div>
         </div>
       </div>
