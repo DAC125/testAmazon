@@ -6,6 +6,7 @@ import RequestDetail from "../Pages/RequestDetail";
 import Declaration from "../Pages/Declaration";
 import SuccessRegister from "../Pages/SuccessRegister";
 import FailedRegister from "../Pages/FailedRegister";
+import Xml from "../Pages/Xml";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import "./../CSS/Container.css";
 
@@ -21,6 +22,7 @@ const Container = () => {
           <Route path="Main" element={<Main />} />
           <Route path="RequestDetail" element={<RequestDetail />} />
           <Route path="Declaration" element={<Declaration />} />
+          <Route path="Xml" element={<Xml />} />
         </Routes>
       </Router>
     </div>

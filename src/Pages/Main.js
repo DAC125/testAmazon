@@ -171,8 +171,6 @@ export default function Main() {
   const handleDownload = () => {
     console.log("Informacion para descargar", selected);
     DownloadMultipleFiles({requests: selected})
-
-
   }
 
   return (

@@ -215,10 +215,10 @@ const Test = (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha rechazado su solicitud de trámite No {props.data.data.seq}{" "}
-                a nombre de {props.data.data.name}, cédula de identidad{" "}
-                {props.data.data.idNumber} y direccion física{" "}
-                {props.data.data.address}. Favor contactar al departamento de
+                Se ha rechazado su solicitud de trámite No <Text style={styles.bold}>{props.data.data.seq}</Text>{" "}
+                a nombre de <Text style={styles.bold}>{props.data.data.name}</Text>, cédula de identidad{" "}
+                <Text style={styles.bold}>{props.data.data.idNumber}</Text> y direccion física{" "}
+                <Text style={styles.bold}>{props.data.data.address}</Text>. Favor contactar al departamento de
                 Bienes Inmuebles en atención a su solicitud
               </Text>
               <View style={styles.contact}>
@@ -255,10 +255,10 @@ const Test = (props) => {
                 Estimada persona usuaria,{" "}
               </Text>
               <Text style={styles.text}>
-                Se ha aceptado su solicitud de trámite No {props.data.data.seq}{" "}
-                a nombre de {props.data.data.name}, cédula de identidad{" "}
-                {props.data.data.idNumber} y direccion física{" "}
-                {props.data.data.address}.
+                Se ha aceptado su solicitud de trámite No <Text style={styles.bold}>{props.data.data.seq}</Text>{" "}
+                a nombre de <Text style={styles.bold}>{props.data.data.name}</Text>, cédula de identidad{" "}
+                <Text style={styles.bold}>{props.data.data.idNumber}</Text> y direccion física{" "}
+                <Text style={styles.bold}>{props.data.data.address}</Text>.
               </Text>
               <View style={styles.contact}>
                 <Text style={styles.contactTitle}>
