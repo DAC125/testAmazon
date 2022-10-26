@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
-import { ConstructionOutlined } from "@mui/icons-material";
+import {
+  ConnectingAirportsOutlined,
+  ConstructionOutlined,
+  ContactlessOutlined,
+} from "@mui/icons-material";
 
 const xml = () => {
-
   function isXml(value) {
     const parser = new DOMParser();
     const str = value.split("\n").join("");
@@ -15,73 +18,100 @@ const xml = () => {
   // funtion to check all de single elements from node || return boolean
   const checkNodes = (node) => {
     for (let i = 0; i < node.parentNode.childNodes.length; i++) {
-      let result;
       if (node.parentNode.childNodes[i].hasChildNodes()) {
-        result = isDuplicated(node.parentNode.childNodes[i].firstChild);
-        
+        if (isDuplicatedAux(node.parentNode.childNodes[i].firstChild))
+          return true;
       }
-      if (result){
-        return true
-      }
+
       for (let y = i + 1; y < node.parentNode.childNodes.length; y++) {
-        
-        console.log("Data", node.parentNode.childNodes[i], node.parentNode.childNodes[y])
+        console.log(i,y)
+        console.log(
+          "Data",
+          node.parentNode.childNodes[i],
+          node.parentNode.childNodes[y]
+        );
         // hola++;
         if (
           node.parentNode.childNodes[i].isEqualNode(
-            node.parentNode.childNodes[y])
+            node.parentNode.childNodes[y]
+          )
         ) {
           return true;
         }
-        
       }
-      
     }
     return false;
   };
 
   // recursive function to travel throw the node tree of xml || return boolean
-  const isDuplicated = (xmlNode) => {
-    let result;
+  const isDuplicatedAux = (xmlNode) => {
+    // console.log(xmlNode)
     // console.log(xmlNode)
     if (xmlNode.hasChildNodes()) {
-      result = isDuplicated(xmlNode.firstChild);
+      return isDuplicatedAux(xmlNode.firstChild);
     } else {
-      result = checkNodes(xmlNode);
+      return checkNodes(xmlNode);
     }
-    // console.log("aaa", xmlNode)
-    // if (xmlNode.parentNode.nextSibling && !result) {
-    //   return isDuplicated(xmlNode.nextSibling) || checkNodes(xmlNode);
+    // console.log("oooooo", xmlNode.parentNode.nextSibling)
+
+    // return result
+
+    // if (xmlNode.nextSibling && !result) {
+    //   return isDuplicated(xmlNode.parentNode.nextSibling)
     // } else {
     //   return result;
     // }
   };
 
-  let text = `
-  <casa>
-	<habitacion id="1">
-		<add key="Exit" value="Maria" />
-		<add key="Exit" value="Jose" />
-		<add key="Exit" value="Barquero" />
-	</habitacion>
-		<habitacion id="2">
-		<add key="Exit" value="Diego" />
-		<add key="Exit" value="Acuna" />
-	</habitacion>
-</casa>
-         `;
+  const isDuplicated = (xmlFile) => {
+    console.log(isDuplicatedAux(xmlFile.childNodes[0]))
+    // xmlFile.childNodes.forEach((element) => {
+    //   if (isDuplicatedAux(element)) {
+    //     return true;
+    //   }
+    // });
+    // return false;
+    
+  };
+
+  let text = (`
+    <settings>
+      <add key="test2" value="1" /> 
+      <add key="test1" value="2" />
+      <add key="test3" value="false" /> 
+      <add key="test4" value="8000" />
+      <routes>
+        <menu>
+          <menuitem Name="home" /> 
+          <menuitem Name="login" />
+          <menuitem Name="signup" /> 
+          <menuitem Name="test" />
+          <menuitem Name="test" />
+        </menu>
+        <menuitem Name="dac" />
+      </routes>
+      <uris>
+        <add key="Game" value="true" /> <add key="Exit" value="false" />
+        <add key="Exit" value="false" /> <add key="test5" value="true" />
+        <add key="test6" value="true" />
+      </uris>
+      <add key="test7" value="1" /> <add key="test8" value="2" />
+      <add key="test9" value="false" /> <add key="test10" value="8000" />
+    </settings>`
+  );
 
   const click = () => {
     const data = isXml(text);
-    // console.log(data.childNodes[0])
-    console.log("Finall result",isDuplicated(data.childNodes[0]));
+    console.log(data.childNodes[0].childNodes[4])
+    // console.log(data.childNodes[0].childNodes[4].childNodes[0].childNodes[3].isEqualNode(data.childNodes[0].childNodes[4].childNodes[0].childNodes[4]))
+    console.log("Finall result", isDuplicated(data.childNodes[0].childNodes[4]));
   };
 
   return (
     <div className="App">
       <div>
-      <h1>Test de XML</h1>
-      <label>{text}</label>
+        <h1>Test de XML</h1>
+        <label>{text}</label>
       </div>
       <Button onClick={click}>Verify</Button>
     </div>
