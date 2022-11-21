@@ -1,0 +1,7 @@
+@import './Components/Header/Header.css';
+@import './Components/Footer/Footer.css';
+
+body {
+    font-family: sans-serif;
+}
+
