@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Colegio Tecnico Profesional de Ulloa.</title>
+  <link rel="stylesheet" href="estilo.css">
+  <link rel="stylesheet" href="carrusel.css">
+  <link rel="stylesheet" href="Contacto.html">
+</head>
+
+<body>
+  <header>
+    <div class="interior">
+      <a href="index.html" class="logo" target="blank"><img src="./imagenes/Escudo.jpg" alt="Logo"></a>
+      <a href="#default" class="header-text logo">Colegio Tecnico Profesional de Ulloa</a>
+      <nav class="navegacion">
+        <ul>
+          <li><a href="index.html" target="blank">Inicio</a></li>
+          <li><a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdSWsSXhYNGVLXQPO5MGSUwDCgAfFJzeimelMGLvWybmo_-cg/viewform"
+              target="blank">Solicitud de documentos</a></li>
+          <li class="submenu">
+            <a href="" target="blank">Especialidades</a>
+            <ul class="hijos">
+              <li><a
+                  href="https://drive.google.com/file/d/1ABYNssnAgCp904n7eIxSD7KqNgkb3YGW/view?usp=sharing">Configuración
+                  y soporte a redes</a></li>
+              <li><a href="https://drive.google.com/file/d/165S_eSev_F2QxnfkuhPhPc988hwwFNBK/view?usp=sharing">Dibujo y
+                  modelado de edificaciones</a></li>
+              <li><a href="https://drive.google.com/file/d/1NxF9F9snSpy76G7waG9_VDAp8z2Z7PEa/view?usp=sharing">Diseño y
+                  desarrollo digital</a></li>
+              <li><a href="https://drive.google.com/file/d/1JT8UxQt5l8vAkXSk3ie2hTaEq7bHa1gC/view?usp=sharing">Ejecutivo
+                  comercial</a></li>
+              <li><a
+                  href="https://drive.google.com/file/d/1S9a2LRRCcOPnXqL1GaGNkFRDMITKcaYy/view?usp=sharing">Electro- mecánica</a>
+              </li>
+              <li><a
+                  href="https://drive.google.com/file/d/1jjCUUvifbvlr841AnsRD_kXnrNLsbwhm/view?usp=sharing">Electrónica
+                  industrial</a></li>
+              <li><a
+                  href="https://drive.google.com/file/d/1ds9m37rsZRBE6jLKcUqgct9IUI_6TfIK/view?usp=sharing">Secretario
+                  Ejecutivo</a></li>
+            </ul>
+          </li>
+          <li><a href="Contacto.html" target="blank">Contáctenos</a></li>
+          <li class="submenu">
+            <a href="" target="blank">Informacion</a>
+            <ul class="hijos">
+              <li><a
+                  href="https://drive.google.com/drive/folders/1MpXCwltPrkinxTIpahxJdhp3zhR0KMfu?fbclid=IwAR37l0OnstJxq1Qr-lNACFzbWwg4F5RNn8B3KqG0PXepdtlspH7VrFBxnNo">Matricula</a>
+              </li>
+              <li><a href="">Normativa</a></li>
+              <li><a href="https://www.pelutti.com/categories/41/ctp-de-ulloa">Uniforme</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="slideshow-container">
+    <div class="mySlides fade">
+      <div class="numbertext">1 / 4</div>
+      <img src="./imagenes/EntradaPrincipal.jpg" style="width:100%">
+      <div class="text">Entrada Principal</div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">2 / 4</div>
+      <img src="./imagenes/FotoAerea.jpg" style="width:100%">
+      <div class="text">Fotografía Aérea</div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">3 / 4</div>
+      <img src="./imagenes/PatioCentral.jpg" style="width:100%">
+      <div class="text">Patio Central</div>
+    </div>
+
+    <div class="mySlides fade">
+      <div class="numbertext">4 / 4</div>
+      <img src="./imagenes/ZonaRecreativa.jpg" style="width:100%">
+      <div class="text">Zona Recreativa</div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+  </div>
+  <br>
+
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+    }
+  </script>
+
+  <div class="div-principal">
+    <div class="contenedor">
+      <a href="galeria.html">
+        <figure>
+          <img src="./imagenes/Galeria.png">
+          <div class="capa">
+            <h3>Galería de Fotos</h3>
+            <p>Recuerdos de nuestra institución.</p>
+          </div>
+        </figure>
+      </a>
+    </div>
+    <div class="contenedor">
+      <a href="Historia.html">
+        <figure>
+          <img src="./imagenes/Historia.png">
+          <div class="capa">
+            <h3>Historia de la institución</h3>
+            <p>Conozca como se fundó nuestra institución y como ha evolucionado.</p>
+          </div>
+        </figure>
+      </a>
+    </div>
+    <div class="contenedor">
+      <a href="ContextoInsti.html">
+        <figure>
+          <img src="./imagenes/ContextoInst.png">
+          <div class="capa">
+            <h3>Contexto Historico</h3>
+            <p>Es importante que conozca nuestros valores, objetivos, filosofía, entre otros contextos más.</p>
+          </div>
+        </figure>
+      </a>
+    </div>
+    <div class="contenedor">
+      <a href="https://youtu.be/hkbgCKdq5gI">
+        <figure>
+          <img src="./imagenes/Informacion.png">
+          <div class="capa">
+            <h3>Himno al Colegio</h3>
+            <p>Deleitese con nuestro Himno al colegio técnico Profesional de Ulloa.</p>
+          </div>
+        </figure>
+      </a>
+    </div>
+  </div>
+  <footer class="pie-pagina">
+    <div class="grupo-1">
+      <div class="box">
+        <figure>
+          <a href="#">
+            <img src="./imagenes/Escudo.jpg" alt="Logo"></a>
+          </a>
+        </figure>
+      </div>
+      <div class="box">
+        <h2>VALORES</h2>
+        <p>La institución se fundamenta en los siguientes valores: amor, fe, respeto, responsabilidad, tolerancia,
+          solidaridad, honestidad y civismo.</p>
+      </div>
+      <div class="box">
+        <h2>CTP ULLOA</h2>
+        <div class="red-social">
+          <P>Si hay calidad en lo que hacés, el éxito merecés.</P>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

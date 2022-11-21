@@ -1,0 +1,112 @@
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    box-sizing: border-box
+}
+
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Tamaño de los cuadros*/
+.slideshow-container {
+    max-width: 3000px;
+    position: relative;
+    margin: 15px;
+}
+
+
+/*Botones para pasar de imagen */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Posicion del boton*/
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Color de los botones*/
+.prev:hover,
+.next:hover {
+    background-color: rgba(37, 136, 4, 0.8);
+}
+
+/* Estilo de las letras pequeñas */
+.text {
+    color: #ffffff;
+    font-size: 20px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Numerador de la esquina*/
+.numbertext {
+    color: #000000;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Los tres circulitos de navegación */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #0a681a;
+}
+
+/* Animación de las imagenes */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@media only screen and (max-width: 300px) {
+
+    .prev,
+    .next,
+    .text {
+        font-size: 11px
+    }
+}
